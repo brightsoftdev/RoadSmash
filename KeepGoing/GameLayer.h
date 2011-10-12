@@ -11,11 +11,31 @@
 #import "cocos2d.h"
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer
+@interface GameLayer : CCLayer
 {
+    CGSize screenSize;
+    
+    CCSprite *playerSprite;
+    CGPoint playerVelocity;
+    
+    CCSprite *r1;
+    CCSprite *r2;
+    CCSprite *l1;
+    CCSprite *l2;
+    
+    //CCRenderTexture* _rt;
+    int roadSegment;
+    int checkCount;
+
 }
+
+@property (nonatomic, retain) CCSprite *playerSprite;
+//@property (nonatomic,assign) CCRenderTexture *_rt;
+
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
+-(BOOL) isCollisionBetweenSpriteA:(CCSprite*)spr1 spriteB:(CCSprite*)spr2 pixelPerfect:(BOOL)pp;
+- (void) stopGame;
 
 @end
