@@ -24,8 +24,10 @@
     CCSprite *l2;
     
     //CCRenderTexture* _rt;
-    int roadSegment;
-    int checkCount;
+    int roadSegment1;
+    int roadSegment2;
+    int checkCount1;
+    int checkCount2;
 
 }
 

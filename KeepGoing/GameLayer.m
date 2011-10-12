@@ -49,8 +49,10 @@
         
         [self loadPlayerSprite];
         
-        roadSegment = 1;
-        checkCount = 0;
+        roadSegment1 = 1;
+        roadSegment2 = 1;
+        checkCount1 = 0;
+        checkCount2 = 0;
         //[self schedule:@selector(newRoadSegment:) interval:5];
 
 	}
@@ -62,25 +64,46 @@
 	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
-- (void) newRoadSegment
+#define NUM_OF_ROAD_SEGMENT_LOOPS 5
+
+- (void) newRoadSegmentOneCheck
 {
     
-    ++checkCount;
+    ++checkCount1;
     
-    if (checkCount >= 5)
+    if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
-        checkCount = 0;
-        if (roadSegment == 1)
+        checkCount1 = 1;
+        if (roadSegment1 == 1)
         {
-            roadSegment = 2;
+            roadSegment1 = 2;
         } else {
-            roadSegment = 1;
+            roadSegment1 = 1;
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment]]];
-        //[l1 setTexture:txt];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment1]]];
+        [l1 setTexture:txt];
+        [r1 setTexture:txt];
+    }
+}
+
+- (void) newRoadSegmentTwoCheck
+{
+    
+    ++checkCount2;
+    
+    if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
+    {
+        checkCount2 = 0;
+        if (roadSegment2 == 1)
+        {
+            roadSegment2 = 2;
+        } else {
+            roadSegment2 = 1;
+        }
+        
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment2]]];
         [l2 setTexture:txt];
-        //[r1 setTexture:txt];
         [r2 setTexture:txt];
     }
 }
@@ -101,14 +124,16 @@
 	[l1 setPosition:ccp(0,(screenSize.height/2))];
     id leftMove1 = [CCMoveTo actionWithDuration:speed position:ccp(0,-(screenSize.height/2))];
 	id leftPlace1 = [CCPlace actionWithPosition:ccp(0,(screenSize.height/2))];
-	id seqL1 = [CCSequence actions: leftMove1, leftPlace1,nil];
+    id replaceOneCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentOneCheck)]; //****** should be here to come from offscreen
+
+	id seqL1 = [CCSequence actions: leftMove1, leftPlace1, replaceOneCheck, nil];
     
     [l2 setPosition:ccp(0,(screenSize.height*1.49))];
 	id leftMove2=[CCMoveTo actionWithDuration:speed position:ccp(0,(screenSize.height/2))];
     id leftPlace2 = [CCPlace actionWithPosition:ccp(0,(screenSize.height*1.49))];
-    id replaceCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegment)]; //****** should be here to come from offscreen
+    id replaceTwoCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentTwoCheck)]; //****** should be here to come from offscreen
 
-	id seqL2=[CCSequence actions: leftMove2, leftPlace2, replaceCheck, nil];
+	id seqL2=[CCSequence actions: leftMove2, leftPlace2, replaceTwoCheck, nil];
 	
 	[l1 runAction:[CCRepeatForever actionWithAction:seqL1]];
     [l2 runAction: [CCRepeatForever actionWithAction:seqL2]];

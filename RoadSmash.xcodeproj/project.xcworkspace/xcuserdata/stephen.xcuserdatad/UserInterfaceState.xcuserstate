@@ -1870,9 +1870,9 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>340124644.01726902</real>
-		<string>{0, 851}</string>
-		<string>{511, 10}</string>
+		<real>340125729.461716</real>
+		<string>{0, 896}</string>
+		<string>{525, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2013,9 +2013,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>340124898.90801001</real>
-		<string>{1460, 2335}</string>
-		<string>{2043, 0}</string>
+		<real>340126188.99172997</real>
+		<string>{1301, 959}</string>
+		<string>{1680, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2239,8 +2239,8 @@
 		</dict>
 		<string>IDEDeviceLocation</string>
 		<string>IDEDeviceArchitecture</string>
-		<string>dvtdevice-iphonesimulator:/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk-iPhone</string>
-		<string>i386</string>
+		<string>dvtdevice-iphonePlaceholder:placeholder</string>
+		<string>armv7</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2562,7 +2562,7 @@
 				<integer>222</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>340124869.78308398</real>
+			<real>340126104.99347597</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -2573,7 +2573,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 11:07 PM</string>
+		<string>Today at 11:28 PM</string>
 		<integer>234</integer>
 		<string>RoadSmash</string>
 		<dict>
@@ -2910,7 +2910,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>15</integer>
+					<integer>252</integer>
 				</dict>
 			</array>
 		</dict>
@@ -3823,10 +3823,10 @@
 				</dict>
 			</array>
 		</dict>
-		<real>340124898.91289002</real>
-		<string>{1460, 2335}</string>
-		<string>{2043, 0}</string>
-		<string>-loadBg</string>
+		<real>340126188.99517602</real>
+		<string>{1301, 959}</string>
+		<string>{1680, 0}</string>
+		<string>-newRoadSegmentOneCheck</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -3860,7 +3860,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {1211, 796}}</string>
+		<string>{{0, 0}, {1211, 611}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -4110,7 +4110,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>367</integer>
+					<integer>364</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -4723,7 +4723,7 @@
 		</dict>
 		<string>IDEUtilitiesArea</string>
 		<real>260</real>
-		<string>{{35, 6}, {1400, 872}}</string>
+		<string>{{37, 6}, {1400, 872}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
