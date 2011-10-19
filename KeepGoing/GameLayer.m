@@ -14,7 +14,8 @@
 @implementation GameLayer
 
 @synthesize playerSprite;
-//@synthesize _rt;
+@synthesize levelDictionary;
+@synthesize keysArray;
 
 +(CCScene *) scene
 {
@@ -34,26 +35,22 @@
         //self.isTouchEnabled = YES;
         
         screenSize = [[CCDirector sharedDirector] winSize];
-
-        /*
-        // create render texture and make it visible for testing purposes
-        _rt = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
-        _rt.position = ccp(screenSize.width*0.5f,screenSize.height*0.1f);
-        [self addChild:_rt];
-        _rt.visible = NO;
-        */
+        
+        //levelDictionary = [[NSDictionary alloc] init];
+        //keysArray = [[NSArray alloc] init];
         
         [self scheduleUpdate];
+        
+        [self levelUp];
         
         [self loadBg];
         
         [self loadPlayerSprite];
         
-        roadSegment1 = 1;
-        roadSegment2 = 1;
+        //roadSegment1 = 0;
+        //roadSegment2 = 0;
         checkCount1 = 0;
         checkCount2 = 0;
-        //[self schedule:@selector(newRoadSegment:) interval:5];
 
 	}
 	return self;
@@ -64,26 +61,84 @@
 	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
-#define NUM_OF_ROAD_SEGMENT_LOOPS 5
+- (void) levelUp
+{
+    levelDictionary = nil;
+    keysArray = nil;
+    
+    int lv=1; //CURRENT LEVEL TEMP
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Level%idata", lv] ofType:@"plist"];
+    //levelDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    levelDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+    keysArray = [[NSArray alloc] initWithArray:[levelDictionary allKeys]];
+    
+    currentLevelIndexCount = [keysArray count];
+    currentLevelIndex = 0;
+    
+    //NSLog(@"currentLevelIndexCount = %i", [keysArray count]);
+    //NSLog(@"currentLevelIndex = %i", currentLevelIndex);
+}
+
+- (int) getNumberOfRoadSegmentLoops
+{
+
+    id nextKey = [keysArray objectAtIndex:currentLevelIndex];
+    
+    //NSLog(@"got here");
+
+    id nextValue = [levelDictionary objectForKey:nextKey];
+    
+    //NSLog(@"nextValue is %i", [nextValue intValue]);
+    
+    return [nextValue intValue];
+}
+
+- (NSString *) getRoadSegmentKeyForIndex
+{
+    NSString *key = [keysArray objectAtIndex:currentLevelIndex];
+    NSString *newStr = [key substringFromIndex:1];
+    
+    return newStr;
+}
+
 
 - (void) newRoadSegmentOneCheck
 {
     
     ++checkCount1;
+    NSLog(@"ROAD CHECK");
+    NSLog(@"INDEX IS %i", currentLevelIndex);
     
-    if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
+    if (checkCount1 >= [self getNumberOfRoadSegmentLoops])
     {
+        // we need a new road segment
+        NSLog(@"NEED NEW ROAD SEGMENT");
         checkCount1 = 1;
-        if (roadSegment1 == 1)
+        ++currentLevelIndex;
+        
+        if (currentLevelIndex >= currentLevelIndexCount)
         {
-            roadSegment1 = 2;
-        } else {
-            roadSegment1 = 1;
+            // new level
+            NSLog(@"LEVEL UP");
+            [self levelUp];
+            
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment1]]];
-        [l1 setTexture:txt];
-        [r1 setTexture:txt];
+        NSString *roadSegment1 = [self getRoadSegmentKeyForIndex];
+        NSLog(@"roadSegment1 string is %@", roadSegment1);
+        
+        CCTexture2D *txtL=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@L", roadSegment1]]];
+        CCTexture2D *txtR=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@R", roadSegment1]]];
+
+        [l1 setTexture:txtL];
+        [l1 setTextureRect:CGRectMake(0.0f, 0.0f, txtL.contentSize.width, txtL.contentSize.height)];
+        [l1.texture setAliasTexParameters];
+        [l2.texture setAliasTexParameters];
+
+        [r1 setTexture:txtR];
+        [r1 setTextureRect:CGRectMake(0.0f, 0.0f, txtR.contentSize.width, txtR.contentSize.height)];
+        [r1.texture setAliasTexParameters];
+        [r2.texture setAliasTexParameters];
     }
 }
 
@@ -92,73 +147,98 @@
     
     ++checkCount2;
     
-    if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
+    if (checkCount2 >= [self getNumberOfRoadSegmentLoops])
     {
-        checkCount2 = 0;
-        if (roadSegment2 == 1)
+        checkCount2 = 1;
+        ++currentLevelIndex;
+        
+        if (currentLevelIndex >= currentLevelIndexCount)
         {
-            roadSegment2 = 2;
-        } else {
-            roadSegment2 = 1;
+            // new level
+            [self levelUp];
+            
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment2]]];
-        [l2 setTexture:txt];
-        [r2 setTexture:txt];
+        NSString *roadSegment2 = [self getRoadSegmentKeyForIndex];
+        NSLog(@"roadSegment2 string is %@", roadSegment2);
+        
+        CCTexture2D *txtL=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@L", roadSegment2]]];
+        CCTexture2D *txtR=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@R", roadSegment2]]];
+
+        [l2 setTexture:txtL];
+        [l2 setTextureRect:CGRectMake(0.0f, 0.0f, txtL.contentSize.width, txtL.contentSize.height)];
+        [l1.texture setAliasTexParameters];
+        [l2.texture setAliasTexParameters];
+        
+        [r2 setTexture:txtR];
+        [r2 setTextureRect:CGRectMake(0.0f, 0.0f, txtR.contentSize.width, txtR.contentSize.height)];
+        [r1.texture setAliasTexParameters];
+        [r2.texture setAliasTexParameters];
     }
 }
 
 #define TAG_ROADLAYER 111
+
 - (void) loadBg
 {
     
-    CCColorLayer *roadLayer = [CCColorLayer layerWithColor: ccc4(102, 102, 102, 255)];
+    CCLayerColor *roadLayer = [CCLayerColor layerWithColor: ccc4(102, 102, 102, 255)];
 	[self addChild:roadLayer z:-1 tag:TAG_ROADLAYER];
     
     float speed = 2.0f;
     
     // LEFT SIDE
-    l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
+    l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"L0.png"]];
+	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"L0.png"]];
+    [l1.texture setAliasTexParameters];
+    [l2.texture setAliasTexParameters];
+    l1.anchorPoint = ccp(0,0.5);
+    l2.anchorPoint = ccp(0,0.5);
+
 	
 	[l1 setPosition:ccp(0,(screenSize.height/2))];
+    [l2 setPosition:ccp(0,(screenSize.height*1.49))];
+
     id leftMove1 = [CCMoveTo actionWithDuration:speed position:ccp(0,-(screenSize.height/2))];
 	id leftPlace1 = [CCPlace actionWithPosition:ccp(0,(screenSize.height/2))];
     id replaceOneCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentOneCheck)]; //****** should be here to come from offscreen
-
 	id seqL1 = [CCSequence actions: leftMove1, leftPlace1, replaceOneCheck, nil];
     
-    [l2 setPosition:ccp(0,(screenSize.height*1.49))];
 	id leftMove2=[CCMoveTo actionWithDuration:speed position:ccp(0,(screenSize.height/2))];
     id leftPlace2 = [CCPlace actionWithPosition:ccp(0,(screenSize.height*1.49))];
     id replaceTwoCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentTwoCheck)]; //****** should be here to come from offscreen
-
 	id seqL2=[CCSequence actions: leftMove2, leftPlace2, replaceTwoCheck, nil];
 	
 	[l1 runAction:[CCRepeatForever actionWithAction:seqL1]];
     [l2 runAction: [CCRepeatForever actionWithAction:seqL2]];
+    
 	[self addChild:l1 z:1];
 	[self addChild:l2 z:1];
     
     // RIGHT SIDE
-    r1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-	r2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-    r1.scaleX *=-1;
-    r2.scaleX *=-1;
-	
-	[r1 setPosition:ccp(screenSize.width,(screenSize.height/2))];
-    id rightMove1 = [CCMoveTo actionWithDuration:speed position:ccp(screenSize.width,-(screenSize.height/2))];
-	id rightPlace1 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height/2))];
+    r1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"R0.png"]];
+	r2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"R0.png"]];
+    [r1.texture setAliasTexParameters];
+    [r2.texture setAliasTexParameters];
+	r1.anchorPoint = ccp(1,0.5);
+    r2.anchorPoint = ccp(1,0.5);
+    
+	[r1 setPosition:ccp(screenSize.width - 0,(screenSize.height/2))];
+    [r2 setPosition:ccp(screenSize.width- 0,(screenSize.height*1.49))];
+    
+    
+    id rightMove1 = [CCMoveTo actionWithDuration:speed position:ccp(screenSize.width- 0,-(screenSize.height/2))];
+	id rightPlace1 = [CCPlace actionWithPosition:ccp(screenSize.width- 0,(screenSize.height/2))];
 	id seqR1 = [CCSequence actions: rightMove1, rightPlace1,nil];
     
-    [r2 setPosition:ccp(screenSize.width,(screenSize.height*1.49))];
-	id rightMove2=[CCMoveTo actionWithDuration:speed position:ccp(screenSize.width,(screenSize.height/2))];
-    id rightPlace2 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height*1.49))];
+	id rightMove2=[CCMoveTo actionWithDuration:speed position:ccp(screenSize.width- 0,(screenSize.height/2))];
+    id rightPlace2 = [CCPlace actionWithPosition:ccp(screenSize.width- 0,(screenSize.height*1.49))];
 	id seqR2=[CCSequence actions: rightMove2, rightPlace2, nil];
 	
 	[r1 runAction:[CCRepeatForever actionWithAction:seqR1]];
     [r2 runAction: [CCRepeatForever actionWithAction:seqR2]];
-	[self addChild:r1 z:1];
+	
+    [self addChild:r1 z:1];
 	[self addChild:r2 z:1];
 
 }
@@ -175,6 +255,7 @@
 
 #define kHeroMovementAction 1
 #define kPlayerSpeed 100
+
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     
     // controls how quickly velocity decelerates (lower = quicker to change direction)
@@ -203,19 +284,16 @@
 -(void) update:(ccTime)delta
 {
     
-    
     // Keep adding up the playerVelocity to the player's position
     CGPoint pos = playerSprite.position;
     pos.x += playerVelocity.x;
     //
     pos.y += playerVelocity.y;
     
-    /* The Player should also be stopped from going outside the screen
+    // The Player should also be stopped from going outside the screen
     float imageWidthHalved = [playerSprite texture].contentSize.width * 0.5f;
     float leftBorderLimit = imageWidthHalved;
     float rightBorderLimit = screenSize.width - imageWidthHalved;
-    
-    
     
     // preventing the player sprite from moving outside the screen
     if (pos.x < leftBorderLimit)
@@ -228,7 +306,7 @@
         pos.x = rightBorderLimit;
         playerVelocity = CGPointZero;
     }
-    */
+    
     
     
     // KEEP THIS
@@ -256,82 +334,6 @@
 
 }
 
-/*
--(void) checkCollisions
-{
-    // let's make it in a hard way :D
-    
-    if ([self isCollisionBetweenSpriteA:playerSprite spriteB:roadLeftSprite pixelPerfect:YES])
-    {
-        NSLog(@"stop game");
-        [self stopGame];
-        
-    } if ([self isCollisionBetweenSpriteA:playerSprite spriteB:roadRightSprite pixelPerfect:YES])
-    {
-        NSLog(@"stop game");
-        [self stopGame];
-    }
-    
-}
-
-
--(BOOL) isCollisionBetweenSpriteA:(CCSprite*)spr1 spriteB:(CCSprite*)spr2 pixelPerfect:(BOOL)pp
-{
-    BOOL isCollision = NO; 
-    CGRect intersection = CGRectIntersection([spr1 boundingBox], [spr2 boundingBox]);
-    
-    // Look for simple bounding box collision
-    if (!CGRectIsEmpty(intersection))
-    {
-        // If we're not checking for pixel perfect collisions, return true
-        if (!pp) {return YES;}
-        
-        // Get intersection info
-        unsigned int x = intersection.origin.x;
-        unsigned int y = intersection.origin.y;
-        unsigned int w = intersection.size.width;
-        unsigned int h = intersection.size.height;
-        unsigned int numPixels = w * h;
-        
-        //NSLog(@"\nintersection = (%u,%u,%u,%u), area = %u",x,y,w,h,numPixels);
-        
-        // Draw into the RenderTexture
-        [_rt beginWithClear:0 g:0 b:0 a:0];
-        
-        // Render both sprites: first one in RED and second one in GREEN
-        glColorMask(1, 0, 0, 1);
-        [spr1 visit];
-        glColorMask(0, 1, 0, 1);
-        [spr2 visit];
-        glColorMask(1, 1, 1, 1);
-        
-        // Get color values of intersection area
-        ccColor4B *buffer = malloc( sizeof(ccColor4B) * numPixels );
-        glReadPixels(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-        
-        [_rt end];
-        
-        // Read buffer
-        unsigned int step = 1;
-        for(unsigned int i=0; i<numPixels; i+=step)
-        {
-            ccColor4B color = buffer[i];
-            
-            if (color.r > 0 && color.g > 0)
-            {
-                isCollision = YES;
-                break;
-            }
-        }
-        
-        // Free buffer memory
-        free(buffer);
-    }
-    
-    return isCollision;
-}
-*/
-
 - (void) stopGame
 {
     
@@ -345,7 +347,8 @@
 
 - (void) dealloc
 {
-	
+	[keysArray release];
+    [levelDictionary release];
 	[super dealloc];
 }
 @end

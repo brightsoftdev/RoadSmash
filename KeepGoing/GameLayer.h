@@ -23,21 +23,27 @@
     CCSprite *l1;
     CCSprite *l2;
     
-    //CCRenderTexture* _rt;
-    int roadSegment1;
-    int roadSegment2;
+    //int roadSegment1;
+    //int roadSegment2;
     int checkCount1;
     int checkCount2;
-
+    
+    // Road Segments
+    NSDictionary *levelDictionary;
+    NSArray *keysArray;
+    int currentLevelIndexCount;
+    int currentLevelIndex;
+    int currentLevelPieceLoopCount;
 }
 
 @property (nonatomic, retain) CCSprite *playerSprite;
-//@property (nonatomic,assign) CCRenderTexture *_rt;
+@property (nonatomic, retain) NSDictionary *levelDictionary;
+@property (nonatomic, retain) NSArray *keysArray;
 
-
-// returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
--(BOOL) isCollisionBetweenSpriteA:(CCSprite*)spr1 spriteB:(CCSprite*)spr2 pixelPerfect:(BOOL)pp;
 - (void) stopGame;
+- (void) loadBg;
+- (void) loadPlayerSprite;
+- (void) levelUp;
 
 @end
