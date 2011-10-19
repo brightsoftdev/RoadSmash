@@ -31,6 +31,9 @@
 
 	if( (self=[super init])) {
 		
+        roadLayer = [CCLayer node];
+        [self addChild:roadLayer z:5 tag:9999];
+        
         self.isAccelerometerEnabled = YES;
         //self.isTouchEnabled = YES;
         
@@ -38,13 +41,9 @@
         
         //levelDictionary = [[NSDictionary alloc] init];
         //keysArray = [[NSArray alloc] init];
-        
-        [self scheduleUpdate];
-        
         [self levelUp];
-        
+        [self scheduleUpdate];
         [self loadBg];
-        
         [self loadPlayerSprite];
         
         //roadSegment1 = 0;
@@ -70,7 +69,24 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Level%idata", lv] ofType:@"plist"];
     //levelDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     levelDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-    keysArray = [[NSArray alloc] initWithArray:[levelDictionary allKeys]];
+    
+    //
+    NSArray *unsortedKeys = [[NSArray alloc] initWithArray:[levelDictionary allKeys]];
+    NSArray *sortedKeys = [unsortedKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    keysArray = [[NSArray alloc] initWithArray:sortedKeys];
+    [unsortedKeys release];
+    //
+    
+    /////keysArray = [[NSArray alloc] initWithArray:[levelDictionary allKeys]];
+    ////[keysArray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    
+    /*
+    NSArray *sortedKeys = [keysArray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    for (id item in sortedKeys)
+    {
+        NSLog(@"item %@", item);
+    }
+    */
     
     currentLevelIndexCount = [keysArray count];
     currentLevelIndex = 0;
@@ -98,6 +114,7 @@
     NSString *key = [keysArray objectAtIndex:currentLevelIndex];
     NSString *newStr = [key substringFromIndex:1];
     
+    NSLog(@"index %i, key is %@, with loops %i",currentLevelIndex,key,[self getNumberOfRoadSegmentLoops]);
     return newStr;
 }
 
@@ -105,52 +122,68 @@
 - (void) newRoadSegmentOneCheck
 {
     
-    ++checkCount1;
-    NSLog(@"ROAD CHECK");
-    NSLog(@"INDEX IS %i", currentLevelIndex);
+    //NSLog(@"ROAD CHECK 1");
+    //NSLog(@"INDEX IS %i", currentLevelIndex);
     
-    if (checkCount1 >= [self getNumberOfRoadSegmentLoops])
+    int currentRoadSegmentLoops = [self getNumberOfRoadSegmentLoops];
+    
+    if (checkCount1 >= currentRoadSegmentLoops)
     {
         // we need a new road segment
-        NSLog(@"NEED NEW ROAD SEGMENT");
+        //NSLog(@"NEED NEW ROAD SEGMENT1");
         checkCount1 = 1;
-        ++currentLevelIndex;
         
         if (currentLevelIndex >= currentLevelIndexCount)
         {
             // new level
-            NSLog(@"LEVEL UP");
+            //NSLog(@"LEVEL UP");
             [self levelUp];
             
         }
         
         NSString *roadSegment1 = [self getRoadSegmentKeyForIndex];
-        NSLog(@"roadSegment1 string is %@", roadSegment1);
+        currentRoadSegmentLoops = [self getNumberOfRoadSegmentLoops];
+
+        NSLog(@"NEW roadSegment1 string is %@ with %i loops", roadSegment1, currentRoadSegmentLoops);
         
         CCTexture2D *txtL=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@L", roadSegment1]]];
         CCTexture2D *txtR=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@R", roadSegment1]]];
-
+        
         [l1 setTexture:txtL];
         [l1 setTextureRect:CGRectMake(0.0f, 0.0f, txtL.contentSize.width, txtL.contentSize.height)];
         [l1.texture setAliasTexParameters];
         [l2.texture setAliasTexParameters];
-
+        
         [r1 setTexture:txtR];
         [r1 setTextureRect:CGRectMake(0.0f, 0.0f, txtR.contentSize.width, txtR.contentSize.height)];
         [r1.texture setAliasTexParameters];
         [r2.texture setAliasTexParameters];
+        
+        ++currentLevelIndex;
+
+        
+    } else {
+
+        ++checkCount1;
+
     }
+    
+    
+    
+
 }
 
 - (void) newRoadSegmentTwoCheck
 {
     
-    ++checkCount2;
+    //NSLog(@"ROAD CHECK 2");
+    //NSLog(@"INDEX IS %i", currentLevelIndex);
     
-    if (checkCount2 >= [self getNumberOfRoadSegmentLoops])
+    int currentRoadSegmentLoops = [self getNumberOfRoadSegmentLoops];
+
+    if (checkCount2 >= currentRoadSegmentLoops)
     {
         checkCount2 = 1;
-        ++currentLevelIndex;
         
         if (currentLevelIndex >= currentLevelIndexCount)
         {
@@ -160,11 +193,13 @@
         }
         
         NSString *roadSegment2 = [self getRoadSegmentKeyForIndex];
-        NSLog(@"roadSegment2 string is %@", roadSegment2);
+        currentRoadSegmentLoops = [self getNumberOfRoadSegmentLoops];
+        
+        NSLog(@"NEW roadSegment2 string is %@ with %i loops", roadSegment2, currentRoadSegmentLoops);
         
         CCTexture2D *txtL=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@L", roadSegment2]]];
         CCTexture2D *txtR=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@R", roadSegment2]]];
-
+        
         [l2 setTexture:txtL];
         [l2 setTextureRect:CGRectMake(0.0f, 0.0f, txtL.contentSize.width, txtL.contentSize.height)];
         [l1.texture setAliasTexParameters];
@@ -174,22 +209,30 @@
         [r2 setTextureRect:CGRectMake(0.0f, 0.0f, txtR.contentSize.width, txtR.contentSize.height)];
         [r1.texture setAliasTexParameters];
         [r2.texture setAliasTexParameters];
+        
+        ++currentLevelIndex;
+
+    } else {
+    
+        ++checkCount2;
+    
     }
+    
 }
 
-#define TAG_ROADLAYER 111
+#define TAG_ROADCOLORLAYER 111
 
 - (void) loadBg
 {
     
-    CCLayerColor *roadLayer = [CCLayerColor layerWithColor: ccc4(102, 102, 102, 255)];
-	[self addChild:roadLayer z:-1 tag:TAG_ROADLAYER];
+    CCLayerColor *roadColorLayer = [CCLayerColor layerWithColor: ccc4(102, 102, 102, 255)];
+	[self addChild:roadColorLayer z:-1 tag:TAG_ROADCOLORLAYER];
     
     float speed = 2.0f;
     
     // LEFT SIDE
-    l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"L0.png"]];
-	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"L0.png"]];
+    l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1L.png"]];
+	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1L.png"]];
     [l1.texture setAliasTexParameters];
     [l2.texture setAliasTexParameters];
     l1.anchorPoint = ccp(0,0.5);
@@ -212,12 +255,12 @@
 	[l1 runAction:[CCRepeatForever actionWithAction:seqL1]];
     [l2 runAction: [CCRepeatForever actionWithAction:seqL2]];
     
-	[self addChild:l1 z:1];
-	[self addChild:l2 z:1];
+	[roadLayer addChild:l1 z:1];
+	[roadLayer addChild:l2 z:1];
     
     // RIGHT SIDE
-    r1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"R0.png"]];
-	r2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"R0.png"]];
+    r1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1R.png"]];
+	r2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1R.png"]];
     [r1.texture setAliasTexParameters];
     [r2.texture setAliasTexParameters];
 	r1.anchorPoint = ccp(1,0.5);
@@ -238,8 +281,10 @@
 	[r1 runAction:[CCRepeatForever actionWithAction:seqR1]];
     [r2 runAction: [CCRepeatForever actionWithAction:seqR2]];
 	
-    [self addChild:r1 z:1];
-	[self addChild:r2 z:1];
+    [roadLayer addChild:r1 z:1];
+	[roadLayer addChild:r2 z:1];
+    
+    //[roadLayer runAction:seqL1];
 
 }
 
@@ -338,7 +383,7 @@
 {
     
     CCColorLayer *stopRedLayer = [CCColorLayer layerWithColor: ccc4(255, 0, 0, 80)];
-	[self addChild:stopRedLayer z:-1 tag:TAG_ROADLAYER];
+	[self addChild:stopRedLayer z:-1 tag:TAG_ROADCOLORLAYER];
     
     [self unschedule:@selector(update:)];
     [[CCDirector sharedDirector] pause];

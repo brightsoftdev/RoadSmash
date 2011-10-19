@@ -18,6 +18,8 @@
     CCSprite *playerSprite;
     CGPoint playerVelocity;
     
+    CCLayer *roadLayer;
+    
     CCSprite *r1;
     CCSprite *r2;
     CCSprite *l1;
