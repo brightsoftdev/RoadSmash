@@ -4,45 +4,15 @@
 <dict>
 	<key>a1-1</key>
 	<integer>1</integer>
-	<key>b1-1</key>
-	<integer>5</integer>
-	<key>c1-2</key>
+	<key>b1-2</key>
 	<integer>1</integer>
-	<key>d1-3</key>
-	<integer>5</integer>
-	<key>e1-4</key>
+	<key>c1-3</key>
 	<integer>1</integer>
-	<key>f1-1</key>
-	<integer>5</integer>
-	<key>g1-5</key>
+	<key>d1-4</key>
 	<integer>1</integer>
-	<key>h1-1</key>
-	<integer>2</integer>
-	<key>i1-6</key>
+	<key>e1-5</key>
 	<integer>1</integer>
-	<key>j1-1</key>
-	<integer>2</integer>
-	<key>k1-5</key>
+	<key>f1-6</key>
 	<integer>1</integer>
-	<key>l1-6</key>
-	<integer>1</integer>
-	<key>m1-5</key>
-	<integer>1</integer>
-	<key>n1-6</key>
-	<integer>1</integer>
-	<key>o1-5</key>
-	<integer>1</integer>
-	<key>p1-6</key>
-	<integer>1</integer>
-	<key>q1-1</key>
-	<integer>4</integer>
-	<key>r1-2</key>
-	<integer>1</integer>
-	<key>s1-3</key>
-	<integer>5</integer>
-	<key>t1-4</key>
-	<integer>1</integer>
-	<key>u1-1</key>
-	<integer>7</integer>
 </dict>
 </plist>
