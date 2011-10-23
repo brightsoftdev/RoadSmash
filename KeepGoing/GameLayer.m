@@ -74,13 +74,36 @@
     if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
         checkCount1 = 1;
+        
+        switch (roadSegment1) {
+            case 1:
+                roadSegment1 =2;
+                break;
+                
+            case 2:
+                roadSegment1 =3;
+                break;
+                
+            case 3:
+                roadSegment1 =4;
+                break;
+                
+            case 4:
+                roadSegment1 =1;
+                break;
+                
+            default:
+                NSLog(@"NO SEGMENT");
+                break;
+        }
+        /*
         if (roadSegment1 == 1)
         {
             roadSegment1 = 2;
         } else {
             roadSegment1 = 1;
         }
-        
+        */
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment1]]];
         [l1 setTexture:txt];
         [r1 setTexture:txt];
@@ -95,12 +118,37 @@
     if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
     {
         checkCount2 = 0;
+        
+        switch (roadSegment2) {
+            case 1:
+                roadSegment2 =2;
+                break;
+                
+            case 2:
+                roadSegment2 =3;
+                break;
+                
+            case 3:
+                roadSegment2 =4;
+                break;
+                
+            case 4:
+                roadSegment2 =1;
+                break;
+                
+            default:
+                NSLog(@"NO SEGMENT");
+                break;
+        }
+        
+        /*
         if (roadSegment2 == 1)
         {
             roadSegment2 = 2;
         } else {
             roadSegment2 = 1;
         }
+        */
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r%i", roadSegment2]]];
         [l2 setTexture:txt];
