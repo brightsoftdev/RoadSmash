@@ -10,8 +10,9 @@
 		DC527F421445C5A100308D27 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F411445C5A100308D27 /* r1.png */; };
 		DC527F4C1445E02A00308D27 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F4B1445E02A00308D27 /* r2.png */; };
 		DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */; };
-		DCA60D1F1466522C001EFA0D /* lv1-01.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D1E1466522C001EFA0D /* lv1-01.png */; };
 		DCA60D3614665A91001EFA0D /* lv1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D3514665A91001EFA0D /* lv1-1.png */; };
+		DCA60D3814666211001EFA0D /* lv1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D3714666211001EFA0D /* lv1-2.png */; };
+		DCA60D3B14666447001EFA0D /* RoadsideObstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D3A14666447001EFA0D /* RoadsideObstacle.m */; };
 		DCAFCCCC145427BB00028098 /* r3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCAFCCCA145427BB00028098 /* r3.png */; };
 		DCAFCCCD145427BB00028098 /* r4.png in Resources */ = {isa = PBXBuildFile; fileRef = DCAFCCCB145427BB00028098 /* r4.png */; };
 		DCB01077143221A80091BE0A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB01076143221A80091BE0A /* QuartzCore.framework */; };
@@ -146,8 +147,10 @@
 		DC527F4B1445E02A00308D27 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		DCA60D0F14664AF6001EFA0D /* EnemyVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyVehicle.h; sourceTree = "<group>"; };
 		DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyVehicle.m; sourceTree = "<group>"; };
-		DCA60D1E1466522C001EFA0D /* lv1-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-01.png"; sourceTree = "<group>"; };
 		DCA60D3514665A91001EFA0D /* lv1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-1.png"; sourceTree = "<group>"; };
+		DCA60D3714666211001EFA0D /* lv1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-2.png"; sourceTree = "<group>"; };
+		DCA60D3914666447001EFA0D /* RoadsideObstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadsideObstacle.h; sourceTree = "<group>"; };
+		DCA60D3A14666447001EFA0D /* RoadsideObstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadsideObstacle.m; sourceTree = "<group>"; };
 		DCAFCCCA145427BB00028098 /* r3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r3.png; sourceTree = "<group>"; };
 		DCAFCCCB145427BB00028098 /* r4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r4.png; sourceTree = "<group>"; };
 		DCB01072143221A80091BE0A /* RoadSmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadSmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -468,8 +471,8 @@
 		DCB01087143221A80091BE0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DCA60D1E1466522C001EFA0D /* lv1-01.png */,
 				DCA60D3514665A91001EFA0D /* lv1-1.png */,
+				DCA60D3714666211001EFA0D /* lv1-2.png */,
 				DCB011EB143222900091BE0A /* Sprites */,
 				DCB01088143221A80091BE0A /* Default.png */,
 				DCBAE8511462D5BA00542D05 /* bun0.png */,
@@ -822,6 +825,8 @@
 			children = (
 				DCA60D0F14664AF6001EFA0D /* EnemyVehicle.h */,
 				DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */,
+				DCA60D3914666447001EFA0D /* RoadsideObstacle.h */,
+				DCA60D3A14666447001EFA0D /* RoadsideObstacle.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -905,8 +910,8 @@
 				DCBAE8651465562D00542D05 /* c3.png in Resources */,
 				DCBAE86E1465612300542D05 /* water1.png in Resources */,
 				DCBAE874146582F800542D05 /* b1.png in Resources */,
-				DCA60D1F1466522C001EFA0D /* lv1-01.png in Resources */,
 				DCA60D3614665A91001EFA0D /* lv1-1.png in Resources */,
+				DCA60D3814666211001EFA0D /* lv1-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1016,6 +1021,7 @@
 				DCB011DD143221AC0091BE0A /* RootViewController.m in Sources */,
 				DCB011E0143221AC0091BE0A /* GameLayer.m in Sources */,
 				DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */,
+				DCA60D3B14666447001EFA0D /* RoadsideObstacle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
