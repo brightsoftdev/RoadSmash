@@ -9,15 +9,20 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
+#import "HUDLayer.h"
 
-// HelloWorldLayer
 @interface GameLayer : CCLayer
 {
     CGSize screenSize;
     
+    HUDLayer *hudLayer;
+    
     float gameSpeed;
     
     CCLayer *roadLayer;
+    
+    // Score, etc.
+    int score;
     
     // Player vars
     CCSprite *playerSprite;
@@ -58,5 +63,7 @@
 - (void) loadPlayerSprite;
 - (void) setIsJumpingStatus;
 - (void) loadBackground;
+- (void) updateScore;
+
 
 @end

@@ -9,6 +9,7 @@
 
 // Import the interfaces
 #import "GameLayer.h"
+#import "Constants.h"
 #import "RoadsideObstacle.h"
 #import "EnemyVehicle.h"
 
@@ -38,34 +39,38 @@
         self.isAccelerometerEnabled = YES;
         self.isTouchEnabled = YES;
         
+        hudLayer = [[HUDLayer alloc] init];
+        [self addChild: hudLayer z:999 tag:TAG_HUDLAYER];
+
         roadLayer = [CCLayer node];
         [self addChild:roadLayer];
         
         screenSize = [[CCDirector sharedDirector] winSize];
         enemyArray = [[NSMutableArray alloc] init];
         isJumping = NO;
+        score=0;
         
         gameSpeed = 1.5f;
         
-        [self scheduleUpdate];
+        //[self scheduleUpdate];
+        [self schedule:@selector(update:) interval:1/60];
+        NSLog(@"here too");
         
         //[self loadBg];
         [self loadBackground];
         
         [self loadPlayerSprite];
         
-        //[self schedule:@selector(loadLevelObstacles:) interval:5]; // need level time interval
+        //[self schedule:@selector(loadLevelObstacles:) interval:2.0f]; // need level time interval
         //[self schedule:@selector(loadLevelWater:) interval:12];
-        [self schedule:@selector(loadLevelEnemy:) interval:4];
+        [self schedule:@selector(loadLevelEnemy:) interval:1];
 
         
         roadSegment1 = 1;
         roadSegment2 = 1;
         checkCount1 = 0;
         checkCount2 = 0;
-        /*
-        //[self schedule:@selector(newRoadSegment:) interval:5];
-         */
+        
 	}
 	return self;
 }
@@ -136,8 +141,8 @@
     
     [road1 runAction:[CCRepeatForever actionWithAction:seq1]];
     [road2 runAction:[CCRepeatForever actionWithAction:seq2]];
-	[roadLayer addChild:road1 z:-1];
-	[roadLayer addChild:road2 z:-1];
+	[self addChild:road1 z:-1];
+	[self addChild:road2 z:-1];
     
 }
 
@@ -158,6 +163,10 @@
                 break;
                 
             case 2:
+                roadSegment1 =3;
+                break;
+                
+            case 3:
                 roadSegment1 =1;
                 break;
                 
@@ -187,6 +196,10 @@
                 break;
                 
             case 2:
+                roadSegment2 =3;
+                break;
+                
+            case 3:
                 roadSegment2 =1;
                 break;
                 
@@ -265,6 +278,7 @@
     playerSprite.position = ccp(screenSize.width/2, playerSprite.contentSize.height*2);
     [self addChild:playerSprite z:1];
     
+    // engine shaking effect
     id actionR = [CCRotateBy actionWithDuration:0.02f angle:1.5];
     id actionL = [CCRotateBy actionWithDuration:0.02f angle:-1.5];
     id seq = [CCRepeatForever actionWithAction:[CCSequence actions: actionR, [actionR reverse], actionL, [actionL reverse], nil]];
@@ -292,7 +306,7 @@
     
     // TREE 
     RoadsideObstacle *tree = [[RoadsideObstacle alloc] initWithType:@"tree"];
-    [roadLayer addChild:tree.sprite z:1];
+    [self addChild:tree.sprite z:1];
     [enemyArray addObject:tree];
     
 }
@@ -307,7 +321,7 @@
         string = @"bike";
     }
     EnemyVehicle *enemy = [[EnemyVehicle alloc] initWithType:string];
-    [roadLayer addChild:enemy.sprite z:1];
+    [self addChild:enemy.sprite z:1];
     [enemyArray addObject:enemy];
     
     
@@ -369,6 +383,8 @@
 -(void) update:(ccTime)delta
 {
 
+    [self updateScore];
+    
     // Keep adding up the playerVelocity to the player's position
     CGPoint pos = playerSprite.position;
     pos.x += playerVelocity.x;
@@ -428,6 +444,22 @@
     
 }
 
+- (void) updateScore
+{
+    score += 1;
+    [hudLayer.scoreLabel setString:[NSString stringWithFormat:@"%i", score]];
+    
+    /*
+    if (currentSpeed < 294) {
+        currentSpeed = score /25;
+    } else {
+        
+        currentSpeed = 294;
+    }
+    
+    [currentSpeedLabel setString:[NSString stringWithFormat:@"%03i", currentSpeed]];
+     */
+}
 
 - (void) stopGame
 {
@@ -438,6 +470,22 @@
     [self unschedule:@selector(update:)];
     [[CCDirector sharedDirector] pause];
     NSLog(@"STOP GAME!");
+    
+    CCSprite *retry = [CCSprite spriteWithFile:@"retry.png"];
+    [retry.texture setAliasTexParameters];
+    CCMenuItemSprite *retryItem = [CCMenuItemSprite itemFromNormalSprite:retry selectedSprite:nil target:self selector:@selector(restart:)];
+    CCMenu *menu = [CCMenu menuWithItems:retryItem, nil];
+    [self addChild:menu z:1000];
+    
+    
+}
+
+- (void) restart:(id) sender
+{
+    NSLog(@"made it here");
+    [[CCDirector sharedDirector] resume];
+    [[CCDirector sharedDirector] replaceScene:[GameLayer node]];
+
 }
 
 - (void) dealloc
