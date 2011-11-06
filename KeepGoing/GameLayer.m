@@ -14,6 +14,9 @@
 @implementation GameLayer
 
 @synthesize playerSprite;
+@synthesize rockSprite;
+@synthesize waterSprite;
+@synthesize bikeSprite;
 //@synthesize _rt;
 
 +(CCScene *) scene
@@ -31,7 +34,7 @@
 	if( (self=[super init])) {
 		
         self.isAccelerometerEnabled = YES;
-        //self.isTouchEnabled = YES;
+        self.isTouchEnabled = YES;
         
         screenSize = [[CCDirector sharedDirector] winSize];
 
@@ -43,12 +46,19 @@
         _rt.visible = NO;
         */
         
+        isJumping = NO;
+        
         [self scheduleUpdate];
         
-        [self loadBg];
+        //[self loadBg];
+        [self loadBackground];
         
         [self loadPlayerSprite];
         
+        [self schedule:@selector(loadLevelObstacles:) interval:5];
+        [self schedule:@selector(loadLevelWater:) interval:12];
+        [self schedule:@selector(loadLevelEnemy:) interval:4];
+
         roadSegment1 = 1;
         roadSegment2 = 1;
         checkCount1 = 0;
@@ -62,6 +72,40 @@
 -(void) registerWithTouchDispatcher
 {
 	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+}
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event 
+{
+    
+    //id setTxt = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerTexture)];
+    //id delayTime = [CCDelayTime actionWithDuration:0.25f];
+    
+    if (!isJumping)
+    {
+        id jumpUp = [CCScaleTo actionWithDuration:0.75f scale:3.0f];
+        id jumpDown = [CCScaleTo actionWithDuration:0.75f scale:1.0f];
+        id setJumpingBOOL = [CCCallFunc actionWithTarget:self selector:@selector(setIsJumpingStatus)];
+        id seq = [CCSequence actions:setJumpingBOOL, jumpUp, jumpDown, setJumpingBOOL, nil];
+        
+        [playerSprite runAction:seq];
+    }
+    
+    return YES;
+}
+
+- (void) setIsJumpingStatus
+{
+    
+    if (isJumping)
+    {
+        isJumping = NO;
+        [self reorderChild:playerSprite z:1];
+        NSLog(@"ON THE ROAD");
+    } else {
+        isJumping = YES;
+        [self reorderChild:playerSprite z:10];
+        NSLog(@"JUMPING>>>");
+    }
 }
 
 #define NUM_OF_ROAD_SEGMENT_LOOPS 5
@@ -157,27 +201,54 @@
 }
 
 #define TAG_ROADLAYER 111
+
+- (void) loadBackground
+{
+    gameSpeed = 1.5f;
+
+    CCSprite *road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"lv1-1.png"]];
+	CCSprite *road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"lv1-1.png"]];
+	[road1.texture setAliasTexParameters];
+    [road2.texture setAliasTexParameters];
+    [road1 setPosition:ccp(screenSize.width/2,(screenSize.height/2))];
+    [road2 setPosition:ccp(screenSize.width/2,(screenSize.height*1.49))];
+
+    id move1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width/2, -(screenSize.height/2))];
+    id place1 = [CCPlace actionWithPosition:ccp(screenSize.width/2,(screenSize.height/2))];
+    id seq1 = [CCSequence actions:move1,place1, nil];
+    
+    id move2 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width/2, (screenSize.height/2))];
+    id place2 = [CCPlace actionWithPosition:ccp(screenSize.width/2,(screenSize.height*1.49))];
+    id seq2 = [CCSequence actions:move2,place2, nil];
+    
+    [road1 runAction:[CCRepeatForever actionWithAction:seq1]];
+    [road2 runAction: [CCRepeatForever actionWithAction:seq2]];
+	[self addChild:road1 z:-1];
+	[self addChild:road2 z:-1];
+    
+}
+
 - (void) loadBg
 {
     
-    CCColorLayer *roadLayer = [CCColorLayer layerWithColor: ccc4(102, 102, 102, 255)];
+    CCLayerColor *roadLayer = [CCLayerColor layerWithColor: ccc4(102, 102, 102, 255)];
 	[self addChild:roadLayer z:-1 tag:TAG_ROADLAYER];
     
-    float speed = 2.0f;
+    gameSpeed = 1.5f;
     
     // LEFT SIDE
     l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
 	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
 	
 	[l1 setPosition:ccp(0,(screenSize.height/2))];
-    id leftMove1 = [CCMoveTo actionWithDuration:speed position:ccp(0,-(screenSize.height/2))];
+    id leftMove1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(0,-(screenSize.height/2))];
 	id leftPlace1 = [CCPlace actionWithPosition:ccp(0,(screenSize.height/2))];
     id replaceOneCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentOneCheck)]; //****** should be here to come from offscreen
 
 	id seqL1 = [CCSequence actions: leftMove1, leftPlace1, replaceOneCheck, nil];
     
     [l2 setPosition:ccp(0,(screenSize.height*1.49))];
-	id leftMove2=[CCMoveTo actionWithDuration:speed position:ccp(0,(screenSize.height/2))];
+	id leftMove2=[CCMoveTo actionWithDuration:gameSpeed position:ccp(0,(screenSize.height/2))];
     id leftPlace2 = [CCPlace actionWithPosition:ccp(0,(screenSize.height*1.49))];
     id replaceTwoCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentTwoCheck)]; //****** should be here to come from offscreen
 
@@ -195,12 +266,12 @@
     r2.scaleX *=-1;
 	
 	[r1 setPosition:ccp(screenSize.width,(screenSize.height/2))];
-    id rightMove1 = [CCMoveTo actionWithDuration:speed position:ccp(screenSize.width,-(screenSize.height/2))];
+    id rightMove1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width,-(screenSize.height/2))];
 	id rightPlace1 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height/2))];
 	id seqR1 = [CCSequence actions: rightMove1, rightPlace1,nil];
     
     [r2 setPosition:ccp(screenSize.width,(screenSize.height*1.49))];
-	id rightMove2=[CCMoveTo actionWithDuration:speed position:ccp(screenSize.width,(screenSize.height/2))];
+	id rightMove2=[CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width,(screenSize.height/2))];
     id rightPlace2 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height*1.49))];
 	id seqR2=[CCSequence actions: rightMove2, rightPlace2, nil];
 	
@@ -214,10 +285,64 @@
 - (void) loadPlayerSprite
 {
     
-    playerSprite = [CCSprite spriteWithFile:@"player.png"];
+    playerSprite = [CCSprite spriteWithFile:@"c3.png"];
     [playerSprite.texture setAliasTexParameters];
     playerSprite.position = ccp(screenSize.width/2, playerSprite.contentSize.height*2);
     [self addChild:playerSprite z:1];
+    
+    id actionR = [CCRotateBy actionWithDuration:0.02f angle:1.5];
+    id actionL = [CCRotateBy actionWithDuration:0.02f angle:-1.5];
+    id seq = [CCRepeatForever actionWithAction:[CCSequence actions: actionR, [actionR reverse], actionL, [actionL reverse], nil]];
+    
+    [playerSprite runAction:seq];
+    
+}
+
+- (void) loadLevelObstacles:(ccTime) t
+{
+    rockSprite = [CCSprite spriteWithFile:@"c0.png"];
+    [rockSprite.texture setAliasTexParameters];
+    rockSprite.position = ccp(screenSize.width/2, screenSize.height + rockSprite.contentSize.height);
+    [rockSprite runAction:[CCTintTo actionWithDuration:0 red:0 green:0 blue:255]];
+    [self addChild:rockSprite z:1];
+    
+    id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(screenSize.width/2, -rockSprite.contentSize.height)];
+    //id actionClean = [CCCallFuncND actionWithTarget:rockSprite selector:@selector(removeFromParentAndCleanup:) data:(void*)NO];
+    [rockSprite runAction:[CCSequence actions:actionMove, nil]];
+    
+}
+
+- (void) loadLevelEnemy:(ccTime) t
+{
+    
+    float posX;
+    int randy = CCRANDOM_0_1();
+    if (randy==1)
+    {
+        posX = screenSize.width/4;
+    } else {
+        posX = screenSize.width - (screenSize.width/4);
+    }
+    
+    bikeSprite = [CCSprite spriteWithFile:@"b1.png"];
+    [bikeSprite.texture setAliasTexParameters];
+    bikeSprite.position = ccp(posX, screenSize.height + bikeSprite.contentSize.height);
+    [self addChild:bikeSprite z:1];
+    id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(bikeSprite.position.x, -bikeSprite.contentSize.height)];
+    [bikeSprite runAction:[CCSequence actions:actionMove,nil]];
+
+}
+
+- (void) loadLevelWater:(ccTime) t
+{
+    waterSprite = [CCSprite spriteWithFile:@"water1.png"];
+    [waterSprite.texture setAliasTexParameters];
+    waterSprite.position = ccp(screenSize.width/2, screenSize.height + waterSprite.contentSize.height);
+    [self addChild:waterSprite z:1];
+    
+    id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(screenSize.width/2, -waterSprite.contentSize.height)];
+    //id actionClean = [CCCallFuncND actionWithTarget:rockSprite selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    [waterSprite runAction:[CCSequence actions:actionMove,nil]];
     
 }
 
@@ -281,20 +406,28 @@
     
     // KEEP THIS
     
-    if (CGRectIntersectsRect(playerSprite.boundingBox, r1.boundingBox))
+    if (!isJumping)
     {
-        [self stopGame];
-    } else if (CGRectIntersectsRect(playerSprite.boundingBox, r2.boundingBox))
-    {
-        [self stopGame];
-    } else if (CGRectIntersectsRect(playerSprite.boundingBox, l2.boundingBox))
-    {
-        [self stopGame];
-    } else if (CGRectIntersectsRect(playerSprite.boundingBox, l2.boundingBox))
-    {
-        [self stopGame];
+        if (CGRectIntersectsRect(playerSprite.boundingBox, r1.boundingBox))
+        {
+            [self stopGame];
+        } else if (CGRectIntersectsRect(playerSprite.boundingBox, r2.boundingBox))
+        {
+            [self stopGame];
+        } else if (CGRectIntersectsRect(playerSprite.boundingBox, l2.boundingBox))
+        {
+            [self stopGame];
+        } else if (CGRectIntersectsRect(playerSprite.boundingBox, l2.boundingBox))
+        {
+            [self stopGame];
+        } else if (CGRectIntersectsRect(playerSprite.boundingBox, rockSprite.boundingBox))
+        {
+            [self stopGame];
+        } else if (CGRectIntersectsRect(playerSprite.boundingBox, waterSprite.boundingBox))
+        {
+            [self stopGame];
+        }
     }
-    
     // KEEP THIS
     
     // assigning the modified position back
@@ -383,7 +516,7 @@
 - (void) stopGame
 {
     
-    CCColorLayer *stopRedLayer = [CCColorLayer layerWithColor: ccc4(255, 0, 0, 80)];
+    CCLayerColor *stopRedLayer = [CCLayerColor layerWithColor: ccc4(255, 0, 0, 80)];
 	[self addChild:stopRedLayer z:-1 tag:TAG_ROADLAYER];
     
     [self unschedule:@selector(update:)];
