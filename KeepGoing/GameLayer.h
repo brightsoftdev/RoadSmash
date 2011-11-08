@@ -42,6 +42,8 @@
     int checkCount2;
     int roadSegment1;
     int roadSegment2;
+    
+    int currentRoadTexture;
 
     /*
     CCSprite *r1;

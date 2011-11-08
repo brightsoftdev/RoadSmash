@@ -10,7 +10,6 @@
 		DC527F421445C5A100308D27 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F411445C5A100308D27 /* r1.png */; };
 		DC527F4C1445E02A00308D27 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F4B1445E02A00308D27 /* r2.png */; };
 		DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */; };
-		DCA60D3614665A91001EFA0D /* lv1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D3514665A91001EFA0D /* lv1-1.png */; };
 		DCA60D3B14666447001EFA0D /* RoadsideObstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D3A14666447001EFA0D /* RoadsideObstacle.m */; };
 		DCA60D5F14669520001EFA0D /* HUDLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D5E14669520001EFA0D /* HUDLayer.m */; };
 		DCA60D6A1466979A001EFA0D /* scoreWhite.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D621466979A001EFA0D /* scoreWhite.fnt */; };
@@ -25,8 +24,10 @@
 		DCA60D7514669A81001EFA0D /* scoreBlack.fnt in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D7314669A81001EFA0D /* scoreBlack.fnt */; };
 		DCA60D861466A27B001EFA0D /* retry.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D851466A27B001EFA0D /* retry.png */; };
 		DCA60D881466C20A001EFA0D /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D871466C209001EFA0D /* tree.png */; };
-		DCA60D8B1466C720001EFA0D /* lv1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D891466C71F001EFA0D /* lv1-3.png */; };
-		DCA60D8C1466C720001EFA0D /* lv1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D8A1466C71F001EFA0D /* lv1-2.png */; };
+		DCA60D9214681341001EFA0D /* lv1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D8D14681341001EFA0D /* lv1-1.png */; };
+		DCA60D9614681341001EFA0D /* rock.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60D9114681341001EFA0D /* rock.png */; };
+		DCA60D9D146966AA001EFA0D /* VariableStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D9C146966AA001EFA0D /* VariableStore.m */; };
+		DCA60DA414696FD3001EFA0D /* lv1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA60DA314696FD2001EFA0D /* lv1-2.png */; };
 		DCAFCCCC145427BB00028098 /* r3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCAFCCCA145427BB00028098 /* r3.png */; };
 		DCAFCCCD145427BB00028098 /* r4.png in Resources */ = {isa = PBXBuildFile; fileRef = DCAFCCCB145427BB00028098 /* r4.png */; };
 		DCB01077143221A80091BE0A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB01076143221A80091BE0A /* QuartzCore.framework */; };
@@ -161,7 +162,6 @@
 		DC527F4B1445E02A00308D27 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		DCA60D0F14664AF6001EFA0D /* EnemyVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyVehicle.h; sourceTree = "<group>"; };
 		DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyVehicle.m; sourceTree = "<group>"; };
-		DCA60D3514665A91001EFA0D /* lv1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-1.png"; sourceTree = "<group>"; };
 		DCA60D3914666447001EFA0D /* RoadsideObstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadsideObstacle.h; sourceTree = "<group>"; };
 		DCA60D3A14666447001EFA0D /* RoadsideObstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadsideObstacle.m; sourceTree = "<group>"; };
 		DCA60D5D14669520001EFA0D /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDLayer.h; sourceTree = "<group>"; };
@@ -179,8 +179,11 @@
 		DCA60D7314669A81001EFA0D /* scoreBlack.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scoreBlack.fnt; sourceTree = "<group>"; };
 		DCA60D851466A27B001EFA0D /* retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retry.png; sourceTree = "<group>"; };
 		DCA60D871466C209001EFA0D /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
-		DCA60D891466C71F001EFA0D /* lv1-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-3.png"; sourceTree = "<group>"; };
-		DCA60D8A1466C71F001EFA0D /* lv1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-2.png"; sourceTree = "<group>"; };
+		DCA60D8D14681341001EFA0D /* lv1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-1.png"; sourceTree = "<group>"; };
+		DCA60D9114681341001EFA0D /* rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock.png; sourceTree = "<group>"; };
+		DCA60D9B146966AA001EFA0D /* VariableStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableStore.h; sourceTree = "<group>"; };
+		DCA60D9C146966AA001EFA0D /* VariableStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariableStore.m; sourceTree = "<group>"; };
+		DCA60DA314696FD2001EFA0D /* lv1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-2.png"; sourceTree = "<group>"; };
 		DCAFCCCA145427BB00028098 /* r3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r3.png; sourceTree = "<group>"; };
 		DCAFCCCB145427BB00028098 /* r4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r4.png; sourceTree = "<group>"; };
 		DCB01072143221A80091BE0A /* RoadSmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadSmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -474,6 +477,15 @@
 			name = "HUD images";
 			sourceTree = "<group>";
 		};
+		DCA60DA2146966CE001EFA0D /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				DCA60D9B146966AA001EFA0D /* VariableStore.h */,
+				DCA60D9C146966AA001EFA0D /* VariableStore.m */,
+			);
+			name = Singleton;
+			sourceTree = "<group>";
+		};
 		DCB01067143221A80091BE0A = {
 			isa = PBXGroup;
 			children = (
@@ -510,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				DCB011ED143222C10091BE0A /* Layers */,
+				DCA60DA2146966CE001EFA0D /* Singleton */,
 				DCB011EC143222B20091BE0A /* Objects */,
 				DCB011D8143221AC0091BE0A /* AppDelegate.h */,
 				DCB011D9143221AC0091BE0A /* AppDelegate.m */,
@@ -529,9 +542,9 @@
 				DCA60D7614669D75001EFA0D /* HUD images */,
 				DCA60D611466977A001EFA0D /* Fonts */,
 				DCA60D6014669623001EFA0D /* Constants.h */,
-				DCA60D3514665A91001EFA0D /* lv1-1.png */,
-				DCA60D8A1466C71F001EFA0D /* lv1-2.png */,
-				DCA60D891466C71F001EFA0D /* lv1-3.png */,
+				DCA60D8D14681341001EFA0D /* lv1-1.png */,
+				DCA60DA314696FD2001EFA0D /* lv1-2.png */,
+				DCA60D9114681341001EFA0D /* rock.png */,
 				DCA60D871466C209001EFA0D /* tree.png */,
 				DCB011EB143222900091BE0A /* Sprites */,
 				DCB01088143221A80091BE0A /* Default.png */,
@@ -972,7 +985,6 @@
 				DCBAE8651465562D00542D05 /* c3.png in Resources */,
 				DCBAE86E1465612300542D05 /* water1.png in Resources */,
 				DCBAE874146582F800542D05 /* b1.png in Resources */,
-				DCA60D3614665A91001EFA0D /* lv1-1.png in Resources */,
 				DCA60D6A1466979A001EFA0D /* scoreWhite.fnt in Resources */,
 				DCA60D6B1466979A001EFA0D /* scoreWhite.png in Resources */,
 				DCA60D6C1466979A001EFA0D /* scorePurple.fnt in Resources */,
@@ -985,8 +997,9 @@
 				DCA60D7514669A81001EFA0D /* scoreBlack.fnt in Resources */,
 				DCA60D861466A27B001EFA0D /* retry.png in Resources */,
 				DCA60D881466C20A001EFA0D /* tree.png in Resources */,
-				DCA60D8B1466C720001EFA0D /* lv1-3.png in Resources */,
-				DCA60D8C1466C720001EFA0D /* lv1-2.png in Resources */,
+				DCA60D9214681341001EFA0D /* lv1-1.png in Resources */,
+				DCA60D9614681341001EFA0D /* rock.png in Resources */,
+				DCA60DA414696FD3001EFA0D /* lv1-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1098,6 +1111,7 @@
 				DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */,
 				DCA60D3B14666447001EFA0D /* RoadsideObstacle.m in Sources */,
 				DCA60D5F14669520001EFA0D /* HUDLayer.m in Sources */,
+				DCA60D9D146966AA001EFA0D /* VariableStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

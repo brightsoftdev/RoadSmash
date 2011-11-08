@@ -7,6 +7,7 @@
 //
 
 #import "RoadsideObstacle.h"
+#import "VariableStore.h"
 
 @implementation RoadsideObstacle
 
@@ -19,16 +20,51 @@
 		
         screenSize = [[CCDirector sharedDirector] winSize];
 
-        float gameSpeed = 1.5f; // GET GLOBAL GAME SPEED
         self.type = t;
-        self.sprite = [CCSprite spriteWithFile:@"tree.png"];
-        [self.sprite.texture setAliasTexParameters];
-        self.sprite.position = ccp(self.sprite.contentSize.width/2, screenSize.height + self.sprite.contentSize.height);
-        id actionMove1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(self.sprite.contentSize.width/2, -self.sprite.contentSize.height)];
-        id actionClean = [CCCallFuncND actionWithTarget:self.sprite selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-        [self.sprite runAction:[CCSequence actions:actionMove1, actionClean, nil]];
+        
+        if ([self.type isEqualToString:@"rock"])
+        {
+            [self loadRockObstacle];
+        } else if ([self.type isEqualToString:@"tree"])
+        {
+            [self loadTreeObstacle];
+        }
+        
 	}
+    
 	return self;
+}
+
+- (void) loadRockObstacle
+{
+    
+    
+    
+    self.sprite = [CCSprite spriteWithFile:@"rock.png"];
+    [self.sprite.texture setAliasTexParameters];
+    //self.sprite.position = ccp(screenSize.width/2,self.sprite.position.y);
+    self.sprite.position = ccp(screenSize.width/3, self.sprite.position.y); // LEFT LANE
+
+    /*
+    if (CCRANDOM_0_1() > 0.5)
+    {
+        // LEFT LANE
+        self.sprite.position = ccp(screenSize.width/3, self.sprite.position.y);
+        
+    } else {
+        // RIGHT LANE
+        self.sprite.position = ccp(screenSize.width - screenSize.width/3, self.sprite.position.y);
+        
+    }
+     */
+}
+
+- (void) loadTreeObstacle
+{
+    self.sprite = [CCSprite spriteWithFile:@"tree.png"];
+    [self.sprite.texture setAliasTexParameters];
+    self.sprite.position = ccp(screenSize.width/2, self.sprite.position.y); // LEFT LANE
+
 }
 
 

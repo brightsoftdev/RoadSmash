@@ -22,4 +22,9 @@
 
 -(id) initWithType:(NSString *) t;
 
+- (void) loadRockObstacle;
+- (void) loadTreeObstacle;
+
+
+
 @end

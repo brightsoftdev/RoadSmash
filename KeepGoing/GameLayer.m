@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "RoadsideObstacle.h"
 #import "EnemyVehicle.h"
+#import "VariableStore.h"
 
 // HelloWorldLayer implementation
 @implementation GameLayer
@@ -51,6 +52,7 @@
         score=0;
         
         gameSpeed = 1.5f;
+        [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
         [self schedule:@selector(update:) interval:1/60];
@@ -61,11 +63,12 @@
         
         [self loadPlayerSprite];
         
-        //[self schedule:@selector(loadLevelObstacles:) interval:2.0f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:0.5f]; // need level time interval
         //[self schedule:@selector(loadLevelWater:) interval:12];
-        [self schedule:@selector(loadLevelEnemy:) interval:1];
+        //[self schedule:@selector(loadLevelEnemy:) interval:1];
 
         
+        currentRoadTexture = 999;
         roadSegment1 = 1;
         roadSegment2 = 1;
         checkCount1 = 0;
@@ -82,9 +85,6 @@
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event 
 {
-    
-    //id setTxt = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerTexture)];
-    //id delayTime = [CCDelayTime actionWithDuration:0.25f];
     
     if (!isJumping)
     {
@@ -152,6 +152,7 @@
 {
     
     ++checkCount1;
+    currentRoadTexture = 1; // to know which road texture to put obstacle sprites on
     
     if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
@@ -163,16 +164,13 @@
                 break;
                 
             case 2:
-                roadSegment1 =3;
-                break;
-                
-            case 3:
                 roadSegment1 =1;
                 break;
                 
             default:
                 NSLog(@"NO SEGMENT");
                 break;
+                
         }
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment1]]];
@@ -185,6 +183,7 @@
 {
     
     ++checkCount2;
+    currentRoadTexture = 2; // to know which road texture to put obstacle sprites on
     
     if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
     {
@@ -196,13 +195,9 @@
                 break;
                 
             case 2:
-                roadSegment2 =3;
-                break;
-                
-            case 3:
                 roadSegment2 =1;
                 break;
-                
+                                
             default:
                 NSLog(@"NO SEGMENT");
                 break;
@@ -213,62 +208,6 @@
         [road2.texture setAliasTexParameters];
     }
 }
-
-/*
-- (void) loadBg
-{
-    
-    CCLayerColor *roadLayer = [CCLayerColor layerWithColor: ccc4(102, 102, 102, 255)];
-	[self addChild:roadLayer z:-1 tag:TAG_ROADLAYER];
-    
-    gameSpeed = 1.5f;
-    
-    // LEFT SIDE
-    l1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-	l2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-	
-	[l1 setPosition:ccp(0,(screenSize.height/2))];
-    id leftMove1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(0,-(screenSize.height/2))];
-	id leftPlace1 = [CCPlace actionWithPosition:ccp(0,(screenSize.height/2))];
-    id replaceOneCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentOneCheck)]; //****** should be here to come from offscreen
-
-	id seqL1 = [CCSequence actions: leftMove1, leftPlace1, replaceOneCheck, nil];
-    
-    [l2 setPosition:ccp(0,(screenSize.height*1.49))];
-	id leftMove2=[CCMoveTo actionWithDuration:gameSpeed position:ccp(0,(screenSize.height/2))];
-    id leftPlace2 = [CCPlace actionWithPosition:ccp(0,(screenSize.height*1.49))];
-    id replaceTwoCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentTwoCheck)]; //****** should be here to come from offscreen
-
-	id seqL2=[CCSequence actions: leftMove2, leftPlace2, replaceTwoCheck, nil];
-	
-	[l1 runAction:[CCRepeatForever actionWithAction:seqL1]];
-    [l2 runAction: [CCRepeatForever actionWithAction:seqL2]];
-	[self addChild:l1 z:1];
-	[self addChild:l2 z:1];
-    
-    // RIGHT SIDE
-    r1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-	r2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1.png"]];
-    r1.scaleX *=-1;
-    r2.scaleX *=-1;
-	
-	[r1 setPosition:ccp(screenSize.width,(screenSize.height/2))];
-    id rightMove1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width,-(screenSize.height/2))];
-	id rightPlace1 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height/2))];
-	id seqR1 = [CCSequence actions: rightMove1, rightPlace1,nil];
-    
-    [r2 setPosition:ccp(screenSize.width,(screenSize.height*1.49))];
-	id rightMove2=[CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width,(screenSize.height/2))];
-    id rightPlace2 = [CCPlace actionWithPosition:ccp(screenSize.width,(screenSize.height*1.49))];
-	id seqR2=[CCSequence actions: rightMove2, rightPlace2, nil];
-	
-	[r1 runAction:[CCRepeatForever actionWithAction:seqR1]];
-    [r2 runAction: [CCRepeatForever actionWithAction:seqR2]];
-	[self addChild:r1 z:1];
-	[self addChild:r2 z:1];
-
-}
-*/
 
 - (void) loadPlayerSprite
 {
@@ -289,26 +228,35 @@
 
 - (void) loadLevelObstacles:(ccTime) t
 {
-    /*
-    rockSprite = [CCSprite spriteWithFile:@"c0.png"];
-    [rockSprite.texture setAliasTexParameters];
-    rockSprite.position = ccp(screenSize.width/2, screenSize.height + rockSprite.contentSize.height);
-    [rockSprite runAction:[CCTintTo actionWithDuration:0 red:0 green:0 blue:255]];
-    [self addChild:rockSprite z:1];
-    
-    
-    id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(screenSize.width/2, -rockSprite.contentSize.height)];
-    //id actionClean = [CCCallFuncND actionWithTarget:rockSprite selector:@selector(removeFromParentAndCleanup:) data:(void*)NO];
-    [rockSprite runAction:[CCSequence actions:actionMove, nil]];
-    // LEAKING!!
-    [enemyArray addObject:rockSprite];
-    */
-    
     // TREE 
     RoadsideObstacle *tree = [[RoadsideObstacle alloc] initWithType:@"tree"];
-    [self addChild:tree.sprite z:1];
-    [enemyArray addObject:tree];
     
+    if (currentRoadTexture == 1)
+    {
+        [road1 addChild:tree.sprite z:1];
+    } else if (currentRoadTexture ==2) {
+        [road2 addChild:tree.sprite z:1];
+    } else {
+        // do nothing
+    }
+    
+    [enemyArray addObject:tree];
+    //[tree release];
+    
+    /* // ROCK 
+    RoadsideObstacle *rock = [[RoadsideObstacle alloc] initWithType:@"rock"];
+    
+    if (currentRoadTexture == 1)
+    {
+        [road1 addChild:rock.sprite z:1];
+    } else if (currentRoadTexture ==2) {
+        [road2 addChild:rock.sprite z:1];
+    } else {
+        // do nothing
+    }
+    
+    [enemyArray addObject:rock];
+    */
 }
 
 - (void) loadLevelEnemy:(ccTime) t
@@ -414,22 +362,15 @@
         
         for (RoadsideObstacle *obstacle in enemyArray)
         {
+            //obstacle.sprite.anchorPoint = ccp(0,0);
+            //CGRect absoluteBox = CGRectMake(obstacle.sprite.position.x, obstacle.sprite.position.y, [obstacle.sprite boundingBox].size.width, [obstacle.sprite boundingBox].size.height);
             
-            if (obstacle.sprite.position.x > 0)
+            if (CGRectIntersectsRect(playerSprite.boundingBox, obstacle.sprite.boundingBox))
             {
-                
-                if (CGRectIntersectsRect(playerSprite.boundingBox, obstacle.sprite.boundingBox))
-                {
-                    [self stopGame];
-                    //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
-                } 
-                
-            } else {
-                
-                [enemyArray removeObject:obstacle];
-                [obstacle release];
-                
-            }
+                [self stopGame];
+                //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
+            } 
+            
             
         }
         
