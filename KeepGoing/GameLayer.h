@@ -18,9 +18,7 @@
     HUDLayer *hudLayer;
     
     float gameSpeed;
-    
-    CCLayer *roadLayer;
-    
+        
     // Score, etc.
     int score;
     
@@ -36,6 +34,8 @@
     NSMutableArray *enemyArray;
     
     // Environment vars
+    CCLayer *roadLayer1;
+    CCLayer *roadLayer2;
     CCSprite *road1;
     CCSprite *road2;
     int checkCount1;

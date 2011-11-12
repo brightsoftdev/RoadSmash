@@ -43,8 +43,11 @@
         hudLayer = [[HUDLayer alloc] init];
         [self addChild: hudLayer z:999 tag:TAG_HUDLAYER];
 
-        roadLayer = [CCLayer node];
-        [self addChild:roadLayer];
+        roadLayer1 = [CCLayer node];
+        [self addChild:roadLayer1 z:1];
+        
+        roadLayer2 = [CCLayer node];
+        [self addChild:roadLayer2 z:1];
         
         screenSize = [[CCDirector sharedDirector] winSize];
         enemyArray = [[NSMutableArray alloc] init];
@@ -141,7 +144,24 @@
     
     [road1 runAction:[CCRepeatForever actionWithAction:seq1]];
     [road2 runAction:[CCRepeatForever actionWithAction:seq2]];
-	[self addChild:road1 z:-1];
+    
+    // TEMP
+    //roadLayer1.position = ccp(screenSize.width/2, screenSize.height/2);
+    //roadLayer2.position = ccp(screenSize.width/2, screenSize.height*1.49);
+    
+    id actionRoadMove1 = [CCMoveBy actionWithDuration:gameSpeed position:ccp(0, -(screenSize.height/2))];
+    id layerPlace1 = [CCPlace actionWithPosition:ccp(0, screenSize.height/2)];
+    id layerSeq1 = [CCSequence actions:actionRoadMove1, layerPlace1, replaceOneCheck, nil];
+	//[roadLayer1 runAction:[CCRepeatForever actionWithAction:layerSeq1]];
+    
+    id actionRoadMove2 = [CCMoveBy actionWithDuration:gameSpeed position:ccp(0, screenSize.height/2)];
+    id layerPlace2 = [CCPlace actionWithPosition:ccp(0, screenSize.height*1.49)];
+    id layerSeq2 = [CCSequence actions:actionRoadMove2, layerPlace2, replaceTwoCheck, nil];
+    //[roadLayer2 runAction:[CCRepeatForever actionWithAction:layerSeq1]];
+        
+    //TEMP
+    
+    [self addChild:road1 z:-1];
 	[self addChild:road2 z:-1];
     
 }
@@ -234,14 +254,16 @@
     if (currentRoadTexture == 1)
     {
         [road1 addChild:tree.sprite z:1];
+        
     } else if (currentRoadTexture ==2) {
+        
         [road2 addChild:tree.sprite z:1];
+        
     } else {
         // do nothing
     }
     
     [enemyArray addObject:tree];
-    //[tree release];
     
     /* // ROCK 
     RoadsideObstacle *rock = [[RoadsideObstacle alloc] initWithType:@"rock"];
@@ -362,14 +384,28 @@
         
         for (RoadsideObstacle *obstacle in enemyArray)
         {
-            //obstacle.sprite.anchorPoint = ccp(0,0);
-            //CGRect absoluteBox = CGRectMake(obstacle.sprite.position.x, obstacle.sprite.position.y, [obstacle.sprite boundingBox].size.width, [obstacle.sprite boundingBox].size.height);
             
-            if (CGRectIntersectsRect(playerSprite.boundingBox, obstacle.sprite.boundingBox))
+            //CGPoint worldCoord = [obstacle.sprite convertToWorldSpace: obstacle.sprite.position];
+            //worldCoord = CGPointMake(worldCoord.x, ((CGSize)[[CCDirector sharedDirector] displaySizeInPixels]).height - worldCoord.y);
+            //CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.sprite.contentSize.width, obstacle.sprite.contentSize.height);
+            
+            //obstacle.sprite.position = worldCoord;
+            
+            NSLog(@"before: x %f, y %f", obstacle.sprite.position.x, obstacle.sprite.position.y);
+            
+            CGPoint worldCoord = [obstacle.sprite convertToWorldSpace:self.parent.position];
+            
+            CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.sprite.contentSize.width, obstacle.sprite.contentSize.height);
+            
+            NSLog(@"after: x %f, y %f", worldCoord.x, worldCoord.y);
+
+            
+            if (CGRectIntersectsRect(playerSprite.boundingBox, absoluteBox))
             {
                 [self stopGame];
                 //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
             } 
+            
             
             
         }

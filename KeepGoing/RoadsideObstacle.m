@@ -43,7 +43,7 @@
     self.sprite = [CCSprite spriteWithFile:@"rock.png"];
     [self.sprite.texture setAliasTexParameters];
     //self.sprite.position = ccp(screenSize.width/2,self.sprite.position.y);
-    self.sprite.position = ccp(screenSize.width/3, self.sprite.position.y); // LEFT LANE
+    self.sprite.position = ccp(screenSize.width/2, self.sprite.position.y); // LEFT LANE
 
     /*
     if (CCRANDOM_0_1() > 0.5)
@@ -63,7 +63,7 @@
 {
     self.sprite = [CCSprite spriteWithFile:@"tree.png"];
     [self.sprite.texture setAliasTexParameters];
-    self.sprite.position = ccp(screenSize.width/2, self.sprite.position.y); // LEFT LANE
+    self.sprite.position = ccp(screenSize.width/4, self.sprite.position.y); // LEFT LANE
 
 }
 
