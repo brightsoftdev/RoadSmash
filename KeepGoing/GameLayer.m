@@ -21,7 +21,7 @@
 @synthesize rockSprite;
 @synthesize waterSprite;
 @synthesize bikeSprite;
-@synthesize enemyArray;
+//@synthesize enemyArray;
 
 +(CCScene *) scene
 {
@@ -50,7 +50,7 @@
         [self addChild:roadLayer2 z:1];
         
         screenSize = [[CCDirector sharedDirector] winSize];
-        enemyArray = [[NSMutableArray alloc] init];
+        //enemyArray = [[NSMutableArray alloc] init];
         isJumping = NO;
         score=0;
         
@@ -67,7 +67,6 @@
         [self loadPlayerSprite];
         
         [self schedule:@selector(loadLevelObstacles:) interval:0.5f]; // need level time interval
-        //[self schedule:@selector(loadLevelWater:) interval:12];
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
 
         
@@ -166,7 +165,7 @@
     
 }
 
-#define NUM_OF_ROAD_SEGMENT_LOOPS 5
+#define NUM_OF_ROAD_SEGMENT_LOOPS 2
 
 - (void) newRoadSegmentOneCheck
 {
@@ -249,36 +248,61 @@
 - (void) loadLevelObstacles:(ccTime) t
 {
     // TREE 
-    RoadsideObstacle *tree = [[RoadsideObstacle alloc] initWithType:@"tree"];
+    CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
+    [tree.texture setAliasTexParameters];
     
     if (currentRoadTexture == 1)
     {
-        [road1 addChild:tree.sprite z:1];
+        [road1 addChild:tree z:1];
+        tree.position = ccp(screenSize.width/4, tree.position.y);
         
     } else if (currentRoadTexture ==2) {
         
-        [road2 addChild:tree.sprite z:1];
+        [road2 addChild:tree z:1];
+        tree.position = ccp(screenSize.width/4, tree.position.y);
         
     } else {
         // do nothing
     }
-    
-    [enemyArray addObject:tree];
-    
+        
     /* // ROCK 
-    RoadsideObstacle *rock = [[RoadsideObstacle alloc] initWithType:@"rock"];
+     CCSprite *rock = [CCSprite spriteWithFile:@"rock.png"];
+     [rock.texture setAliasTexParameters];
+     
+     if (currentRoadTexture == 1)
+     {
+     [road1 addChild:rock z:1];
+     rock.position = ccp(screenSize.width/2, rock.position.y);
+     
+     } else if (currentRoadTexture ==2) {
+     
+     [road2 addChild:rock z:1];
+     rock.position = ccp(screenSize.width/2, rock.position.y);
+     
+     } else {
+     // do nothing
+     }
+
+    */
+    
+    /* //WATER 
+    CCSprite *water = [CCSprite spriteWithFile:@"water1.png"];
+    [water.texture setAliasTexParameters];
     
     if (currentRoadTexture == 1)
     {
-        [road1 addChild:rock.sprite z:1];
+        [road1 addChild:water z:1];
+        water.position = ccp(screenSize.width/2, water.position.y);
+        
     } else if (currentRoadTexture ==2) {
-        [road2 addChild:rock.sprite z:1];
+        
+        [road2 addChild:water z:1];
+        water.position = ccp(screenSize.width/2, water.position.y);
+        
     } else {
         // do nothing
     }
-    
-    [enemyArray addObject:rock];
-    */
+     */
 }
 
 - (void) loadLevelEnemy:(ccTime) t
@@ -290,9 +314,9 @@
     } else {
         string = @"bike";
     }
-    EnemyVehicle *enemy = [[EnemyVehicle alloc] initWithType:string];
-    [self addChild:enemy.sprite z:1];
-    [enemyArray addObject:enemy];
+    //EnemyVehicle *enemy = [[EnemyVehicle alloc] initWithType:string];
+    //[self addChild:enemy.sprite z:1];
+    //[enemyArray addObject:enemy];
     
     
     
@@ -307,20 +331,6 @@
     // LEAKING!!
     [enemyArray addObject:bikeSprite];
      */
-}
-
-- (void) loadLevelWater:(ccTime) t
-{
-    waterSprite = [CCSprite spriteWithFile:@"water1.png"];
-    [waterSprite.texture setAliasTexParameters];
-    waterSprite.position = ccp(screenSize.width/2, screenSize.height + waterSprite.contentSize.height);
-    [self addChild:waterSprite z:1];
-    
-    id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(screenSize.width/2, -waterSprite.contentSize.height)];
-    //id actionClean = [CCCallFuncND actionWithTarget:rockSprite selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-    [waterSprite runAction:[CCSequence actions:actionMove,nil]];
-    // LEAKING!!
-
 }
 
 #define kHeroMovementAction 1
@@ -382,23 +392,11 @@
     if (!isJumping)
     {
         
-        for (RoadsideObstacle *obstacle in enemyArray)
+        for (CCSprite *obstacle in road1.children)
         {
             
-            //CGPoint worldCoord = [obstacle.sprite convertToWorldSpace: obstacle.sprite.position];
-            //worldCoord = CGPointMake(worldCoord.x, ((CGSize)[[CCDirector sharedDirector] displaySizeInPixels]).height - worldCoord.y);
-            //CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.sprite.contentSize.width, obstacle.sprite.contentSize.height);
-            
-            //obstacle.sprite.position = worldCoord;
-            
-            NSLog(@"before: x %f, y %f", obstacle.sprite.position.x, obstacle.sprite.position.y);
-            
-            CGPoint worldCoord = [obstacle.sprite convertToWorldSpace:self.parent.position];
-            
-            CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.sprite.contentSize.width, obstacle.sprite.contentSize.height);
-            
-            NSLog(@"after: x %f, y %f", worldCoord.x, worldCoord.y);
-
+            CGPoint worldCoord = [obstacle convertToWorldSpace:self.position];
+            CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.contentSize.width, obstacle.contentSize.height);
             
             if (CGRectIntersectsRect(playerSprite.boundingBox, absoluteBox))
             {
@@ -406,13 +404,25 @@
                 //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
             } 
             
+        }
+        
+        for (CCSprite *obstacle in road2.children)
+        {
             
+            CGPoint worldCoord = [obstacle convertToWorldSpace:self.position];
+            CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.contentSize.width, obstacle.contentSize.height);
+            
+            if (CGRectIntersectsRect(playerSprite.boundingBox, absoluteBox))
+            {
+                [self stopGame];
+                //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
+            } 
             
         }
         
     } else {
         
-        NSLog(@"array count is %i", [enemyArray count]);
+        //NSLog(@"array count is %i", [enemyArray count]);
         
     }
     
@@ -467,8 +477,8 @@
 
 - (void) dealloc
 {
-    enemyArray = nil;
-    [enemyArray release];
+    //enemyArray = nil;
+    //[enemyArray release];
 	[super dealloc];
 }
 @end

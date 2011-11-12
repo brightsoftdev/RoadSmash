@@ -31,7 +31,7 @@
     CCSprite *rockSprite;
     CCSprite *waterSprite;
     CCSprite *bikeSprite;
-    NSMutableArray *enemyArray;
+    //NSMutableArray *enemyArray;
     
     // Environment vars
     CCLayer *roadLayer1;
@@ -58,7 +58,7 @@
 @property (nonatomic, retain) CCSprite *rockSprite;
 @property (nonatomic, retain) CCSprite *waterSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
-@property (nonatomic, retain) NSMutableArray *enemyArray;
+//@property (nonatomic, retain) NSMutableArray *enemyArray;
 
 +(CCScene *) scene;
 - (void) stopGame;
