@@ -155,6 +155,8 @@
 		DCBAE8651465562D00542D05 /* c3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE8641465562D00542D05 /* c3.png */; };
 		DCBAE86E1465612300542D05 /* water1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE86D1465612300542D05 /* water1.png */; };
 		DCBAE874146582F800542D05 /* b1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE873146582F800542D05 /* b1.png */; };
+		DCF0BC7F146E48B700BE2B27 /* road1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC7D146E48B700BE2B27 /* road1.tmx */; };
+		DCF0BC80146E48B700BE2B27 /* tiledImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC7E146E48B700BE2B27 /* tiledImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -431,6 +433,8 @@
 		DCBAE8641465562D00542D05 /* c3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c3.png; sourceTree = "<group>"; };
 		DCBAE86D1465612300542D05 /* water1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water1.png; sourceTree = "<group>"; };
 		DCBAE873146582F800542D05 /* b1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b1.png; sourceTree = "<group>"; };
+		DCF0BC7D146E48B700BE2B27 /* road1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = road1.tmx; sourceTree = "<group>"; };
+		DCF0BC7E146E48B700BE2B27 /* tiledImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiledImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,6 +552,8 @@
 				DCA60D871466C209001EFA0D /* tree.png */,
 				DCB011EB143222900091BE0A /* Sprites */,
 				DCB01088143221A80091BE0A /* Default.png */,
+				DCF0BC7D146E48B700BE2B27 /* road1.tmx */,
+				DCF0BC7E146E48B700BE2B27 /* tiledImage.png */,
 				DCBAE8511462D5BA00542D05 /* bun0.png */,
 				DCBAE8521462D5BA00542D05 /* bun1.png */,
 				DCBAE85A1464FD0700542D05 /* car.png */,
@@ -1000,6 +1006,8 @@
 				DCA60D9214681341001EFA0D /* lv1-1.png in Resources */,
 				DCA60D9614681341001EFA0D /* rock.png in Resources */,
 				DCA60DA414696FD3001EFA0D /* lv1-2.png in Resources */,
+				DCF0BC7F146E48B700BE2B27 /* road1.tmx in Resources */,
+				DCF0BC80146E48B700BE2B27 /* tiledImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

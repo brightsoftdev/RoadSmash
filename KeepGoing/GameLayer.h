@@ -43,14 +43,10 @@
     int roadSegment1;
     int roadSegment2;
     
+    CCTMXTiledMap *tileMap;
+    CCTMXLayer *background;
+    
     int currentRoadTexture;
-
-    /*
-    CCSprite *r1;
-    CCSprite *r2;
-    CCSprite *l1;
-    CCSprite *l2;
-    */
 
 }
 
@@ -59,6 +55,8 @@
 @property (nonatomic, retain) CCSprite *waterSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
 //@property (nonatomic, retain) NSMutableArray *enemyArray;
+@property (nonatomic, retain) CCTMXTiledMap *tileMap;
+@property (nonatomic, retain) CCTMXLayer *background;
 
 +(CCScene *) scene;
 - (void) stopGame;

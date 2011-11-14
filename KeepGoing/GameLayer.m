@@ -22,6 +22,8 @@
 @synthesize waterSprite;
 @synthesize bikeSprite;
 //@synthesize enemyArray;
+@synthesize tileMap;
+@synthesize background;
 
 +(CCScene *) scene
 {
@@ -61,8 +63,10 @@
         [self schedule:@selector(update:) interval:1/60];
         NSLog(@"here too");
         
-        //[self loadBg];
-        [self loadBackground];
+        //[self loadBackground];
+        
+        [self loadTileMap];
+        
         
         [self loadPlayerSprite];
         
@@ -116,7 +120,15 @@
     }
 }
 
-
+- (void) loadTileMap
+{
+    
+    self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"road1.tmx"];
+    self.background = [tileMap layerNamed:@"Background"];
+    tileMap.position = ccp(-200,-100);
+    [self addChild:tileMap z:-1];
+    
+}
 
 
 #define TAG_ROADLAYER 111
