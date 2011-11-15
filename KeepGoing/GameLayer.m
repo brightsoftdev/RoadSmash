@@ -56,7 +56,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 5.5f;
+        gameSpeed = 1.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
@@ -70,7 +70,7 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:5.5f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:0.5f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
 
         
@@ -279,40 +279,35 @@
     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
     [tree.texture setAliasTexParameters];
         
+    // NOT TIED TO ROAD
+    [self addChild:tree];
+    tree.position = ccp(screenSize.width - screenSize.width/6, screenSize.height);
+    id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+    id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
+    [tree runAction:actionSeq];
+    // NOT TIED TO ROAD
+    
+    /*
     if (currentRoadTexture == 1)
     {
         
-        [self addChild:tree];
-        tree.position = ccp(screenSize.width/4, screenSize.height);
-        id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
-        id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-        id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
-        [tree runAction:actionSeq];
         
-        /*
         [road1 addChild:tree];
          tree.position = ccp(screenSize.width/4, tree.position.y);
-         */
+         
     } else if (currentRoadTexture ==2) {
         
         
-        [self addChild:tree];
-        tree.position = ccp(screenSize.width/4, screenSize.height);
-        id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
-        id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-        id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
-        [tree runAction:actionSeq];
-        
-        
-        /*
         [road2 addChild:tree];
          tree.position = ccp(screenSize.width/4, tree.position.y);
-         */
+         
         
     } else {
         // do nothing
     }
-        
+    */
+    
     /* // ROCK 
      CCSprite *rock = [CCSprite spriteWithFile:@"rock.png"];
      [rock.texture setAliasTexParameters];
