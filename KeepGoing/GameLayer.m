@@ -44,12 +44,15 @@
         
         hudLayer = [[HUDLayer alloc] init];
         [self addChild: hudLayer z:999 tag:TAG_HUDLAYER];
-
-        roadLayer1 = [CCLayer node];
-        [self addChild:roadLayer1 z:1];
         
-        roadLayer2 = [CCLayer node];
-        [self addChild:roadLayer2 z:1];
+        obstacleLayer = [CCLayer node];
+        [self addChild:obstacleLayer];
+
+        //roadLayer1 = [CCLayer node];
+        //[self addChild:roadLayer1 z:1];
+        
+        //roadLayer2 = [CCLayer node];
+        //[self addChild:roadLayer2 z:1];
         
         screenSize = [[CCDirector sharedDirector] winSize];
         //enemyArray = [[NSMutableArray alloc] init];
@@ -275,58 +278,31 @@
 
 - (void) loadLevelObstacles:(ccTime) t
 {
-    // TREE 
+    /* // TREE 
     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
     [tree.texture setAliasTexParameters];
         
-    // NOT TIED TO ROAD
-    [self addChild:tree];
-    tree.position = ccp(screenSize.width - screenSize.width/6, screenSize.height);
+    [obstacleLayer addChild:tree];
+    tree.position = ccp(screenSize.width/4, screenSize.height);
     id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
     id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
     id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
     [tree runAction:actionSeq];
-    // NOT TIED TO ROAD
+    */ // TREE
     
-    /*
-    if (currentRoadTexture == 1)
-    {
-        
-        
-        [road1 addChild:tree];
-         tree.position = ccp(screenSize.width/4, tree.position.y);
-         
-    } else if (currentRoadTexture ==2) {
-        
-        
-        [road2 addChild:tree];
-         tree.position = ccp(screenSize.width/4, tree.position.y);
-         
-        
-    } else {
-        // do nothing
-    }
-    */
     
-    /* // ROCK 
+    // ROCK 
      CCSprite *rock = [CCSprite spriteWithFile:@"rock.png"];
      [rock.texture setAliasTexParameters];
      
-     if (currentRoadTexture == 1)
-     {
-     [road1 addChild:rock z:1];
-     rock.position = ccp(screenSize.width/2, rock.position.y);
-     
-     } else if (currentRoadTexture ==2) {
-     
-     [road2 addChild:rock z:1];
-     rock.position = ccp(screenSize.width/2, rock.position.y);
-     
-     } else {
-     // do nothing
-     }
+     [obstacleLayer addChild:rock];
+     rock.position = ccp(screenSize.width/4, screenSize.height);
+     id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+     id actionClean = [CCCallFuncND actionWithTarget:rock selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+     id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
+     [rock runAction:actionSeq];
 
-    */
+    // ROCK
     
     /* //WATER 
     CCSprite *water = [CCSprite spriteWithFile:@"water1.png"];
@@ -435,7 +411,7 @@
     if (!isJumping)
     {
         
-        for (CCSprite *obstacle in road1.children)
+        for (CCSprite *obstacle in obstacleLayer.children)
         {
             
             CGPoint worldCoord = [obstacle convertToWorldSpace:self.position];
@@ -449,19 +425,6 @@
             
         }
         
-        for (CCSprite *obstacle in road2.children)
-        {
-            
-            CGPoint worldCoord = [obstacle convertToWorldSpace:self.position];
-            CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.contentSize.width, obstacle.contentSize.height);
-            
-            if (CGRectIntersectsRect(playerSprite.boundingBox, absoluteBox))
-            {
-                [self stopGame];
-                //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
-            } 
-            
-        }
         
     } else {
         

@@ -28,6 +28,7 @@
     BOOL isJumping;
     
     // Enemy/obstacle vars
+    CCLayer *obstacleLayer;
     CCSprite *rockSprite;
     CCSprite *waterSprite;
     CCSprite *bikeSprite;
