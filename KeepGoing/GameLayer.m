@@ -17,7 +17,6 @@
 
 @synthesize playerSprite;
 @synthesize rockSprite;
-@synthesize waterSprite;
 @synthesize bikeSprite;
 
 +(CCScene *) scene
@@ -47,7 +46,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 1.5f;
+        gameSpeed = 4.25f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
@@ -57,9 +56,10 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:1.5f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:1.25f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
+        currentRoadTexture = 999;
         roadSegment1 = 1;
         roadSegment2 = 1;
         checkCount1 = 0;
@@ -106,7 +106,6 @@
 }
 
 
-#define TAG_ROADLAYER 111
 
 - (void) loadBackground
 {
@@ -136,13 +135,12 @@
     
 }
 
-#define MAX_SCREENS 8
-#define NUM_OF_ROAD_SEGMENT_LOOPS 2
 
 - (void) newRoadSegmentOneCheck
 {
     
     ++checkCount1;
+    currentRoadTexture = 1;
     
     if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
@@ -166,6 +164,7 @@
 {
     
     ++checkCount2;
+    currentRoadTexture = 2;
     
     if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
     {
@@ -204,20 +203,10 @@
 
 - (void) loadLevelObstacles:(ccTime) t
 {
-    /* // TREE 
-    CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
-    [tree.texture setAliasTexParameters];
-        
-    [obstacleLayer addChild:tree];
-    tree.position = ccp(screenSize.width/4, screenSize.height);
-    id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
-    id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-    id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
-    [tree runAction:actionSeq];
-    */ // TREE
     
+    [self loadTrees];
     
-    // ROCK 
+    /* //ROCK 
      CCSprite *rock = [CCSprite spriteWithFile:@"rock.png"];
      [rock.texture setAliasTexParameters];
      
@@ -228,13 +217,79 @@
      id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
      [rock runAction:actionSeq];
 
-    // ROCK
+    */ //ROCK
     
     /* //WATER 
     CCSprite *water = [CCSprite spriteWithFile:@"water1.png"];
     [water.texture setAliasTexParameters];
+     
+     [obstacleLayer addChild:water];
+     water.position = ccp(screenSize.width/2, screenSize.height);
+     id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+     id actionClean = [CCCallFuncND actionWithTarget:water selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+     id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
+     [water runAction:actionSeq];
+     */ //WATER
     
+    
+    /* // OTHER
+
+     CCSprite *water = [CCSprite spriteWithFile:@"water1.png"];
+     [water.texture setAliasTexParameters];
+     
+     if (currentRoadTexture == 1)
+     {
+         [road1 addChild:water z:1];
+         water.position = ccp(screenSize.width/2, screenSize.height);
+         
+     } else if (currentRoadTexture ==2) {
+         
+         [road2 addChild:water z:1];
+         water.position = ccp(screenSize.width/2, screenSize.height);
+         
+     }
+     
+    */ //OTHER
+}
+
+- (void) loadTrees
+{
+    // // TREE 
+    
+    CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
+    [tree.texture setAliasTexParameters];
+    tree.position = ccp(screenSize.width/8, screenSize.height*1.25);
+    [obstacleLayer addChild:tree];
+    
+    id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+    id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
+    [tree runAction:actionSeq];
+    
+    CCSprite *tree2 = [CCSprite spriteWithFile:@"tree.png"];
+    [tree2.texture setAliasTexParameters];
+    tree2.position = ccp(screenSize.width - screenSize.width/8, screenSize.height*1.25);
+    [obstacleLayer addChild:tree2];
+    
+    id actionMove2 = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+    id actionClean2 = [CCCallFuncND actionWithTarget:tree2 selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    id actionSeq2 = [CCSequence actions:actionMove2, actionClean2, nil];
+    [tree2 runAction:actionSeq2];
+    
+    /* OLD
+     
+     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
+     [tree.texture setAliasTexParameters];
+     
+     if (currentRoadTexture ==2) {
+     
+     [road2 addChild:tree z:1];
+     tree.position = ccp(screenSize.width/4, 0);
+     
+     } 
      */
+    // // TREE
+
 }
 
 - (void) loadLevelEnemy:(ccTime) t
@@ -265,8 +320,7 @@
      
 }
 
-#define kHeroMovementAction 1
-#define kPlayerSpeed 100
+
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     
     // controls how quickly velocity decelerates (lower = quicker to change direction)
@@ -337,7 +391,6 @@
             } 
             
         }
-        
         
     } else {
         

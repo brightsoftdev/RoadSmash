@@ -28,7 +28,6 @@
     // Enemy/obstacle vars
     CCLayer *obstacleLayer;
     CCSprite *rockSprite;
-    CCSprite *waterSprite;
     CCSprite *bikeSprite;
     
     // Environment vars
@@ -38,12 +37,12 @@
     int checkCount2;
     int roadSegment1;
     int roadSegment2;
+    int currentRoadTexture;
         
 }
 
 @property (nonatomic, retain) CCSprite *playerSprite;
 @property (nonatomic, retain) CCSprite *rockSprite;
-@property (nonatomic, retain) CCSprite *waterSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
 
 +(CCScene *) scene;
