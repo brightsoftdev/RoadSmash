@@ -39,9 +39,6 @@
     int roadSegment1;
     int roadSegment2;
         
-    int roadPieceCount;
-    //int currentRoadTexture;
-
 }
 
 @property (nonatomic, retain) CCSprite *playerSprite;

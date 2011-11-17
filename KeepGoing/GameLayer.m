@@ -57,11 +57,8 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:0.5f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:1.5f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
-
-        //currentRoadTexture = 999;
-        roadPieceCount = 1;
         
         roadSegment1 = 1;
         roadSegment2 = 1;
@@ -139,70 +136,26 @@
     
 }
 
+#define MAX_SCREENS 8
 #define NUM_OF_ROAD_SEGMENT_LOOPS 2
 
 - (void) newRoadSegmentOneCheck
 {
     
     ++checkCount1;
-    //currentRoadTexture = 1; // to know which road texture to put obstacle sprites on
     
     if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
         checkCount1 = 1;
         
-        
-        switch (roadSegment1) {
-            case 1:
-                roadSegment1 =2;
-                break;
-                
-            case 2:
-                roadSegment1 =3;
-                break;
-            
-            case 3:
-                roadSegment1 =4;
-                break;
-                
-            case 4:
-                roadSegment1 =5;
-                break;
-                
-            case 5:
-                roadSegment1 =6;
-                break;
-                
-            case 6:
-                roadSegment1 =7;
-                break;
-                
-            case 7:
-                roadSegment1 =8;
-                break;
-                
-            case 8:
-                roadSegment1 =1;
-                break;
-                
-            default:
-                NSLog(@"NO SEGMENT");
-                break;
-                
-        }
-        
-        
-        /*
-        ++roadPieceCount;
-        if (roadPieceCount >8)
+        if (roadSegment1 < MAX_SCREENS)
         {
-            roadPieceCount = 1;
+            ++roadSegment1;
+        } else {
+            roadSegment1 = 1;
         }
-        */
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment1]]];
-        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadPieceCount]]];
-
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
         
@@ -213,63 +166,19 @@
 {
     
     ++checkCount2;
-    //currentRoadTexture = 2; // to know which road texture to put obstacle sprites on
     
     if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
     {
         checkCount2 = 0;
         
-        
-        switch (roadSegment2) {
-            case 1:
-                roadSegment2 =2;
-                break;
-                
-            case 2:
-                roadSegment2 =3;
-                break;
-                
-            case 3:
-                roadSegment2 =4;
-                break;
-                
-            case 4:
-                roadSegment2 =5;
-                break;
-                
-            case 5:
-                roadSegment2 =6;
-                break;
-                
-            case 6:
-                roadSegment2 =7;
-                break;
-                
-            case 7:
-                roadSegment2 =8;
-                break;
-                
-            case 8:
-                roadSegment2 =1;
-                break;
-                                                
-            default:
-                NSLog(@"NO SEGMENT");
-                break;
-        }
-        
-        
-        /*
-        ++roadPieceCount;
-        if (roadPieceCount >8)
+        if (roadSegment2 < MAX_SCREENS)
         {
-            roadPieceCount = 1;
+            ++roadSegment2;
+        } else {
+            roadSegment2 = 1;
         }
-        */
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment2]]];
-        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadPieceCount]]];
-
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
            
@@ -325,24 +234,13 @@
     CCSprite *water = [CCSprite spriteWithFile:@"water1.png"];
     [water.texture setAliasTexParameters];
     
-    if (currentRoadTexture == 1)
-    {
-        [road1 addChild:water z:1];
-        water.position = ccp(screenSize.width/2, water.position.y);
-        
-    } else if (currentRoadTexture ==2) {
-        
-        [road2 addChild:water z:1];
-        water.position = ccp(screenSize.width/2, water.position.y);
-        
-    } else {
-        // do nothing
-    }
      */
 }
 
 - (void) loadLevelEnemy:(ccTime) t
 {
+    
+    
     NSString *string;
     if (CCRANDOM_0_1() > 0.5)
     {
@@ -350,23 +248,21 @@
     } else {
         string = @"bike";
     }
-    //EnemyVehicle *enemy = [[EnemyVehicle alloc] initWithType:string];
-    //[self addChild:enemy.sprite z:1];
+    EnemyVehicle *enemy = [[EnemyVehicle alloc] initWithType:string];
+    [self addChild:enemy.sprite z:1];
     //[enemyArray addObject:enemy];
     
-    
-    
-    /*
+        
     bikeSprite = [CCSprite spriteWithFile:@"b1.png"];
     [bikeSprite.texture setAliasTexParameters];
-    bikeSprite.position = ccp(posX, screenSize.height + bikeSprite.contentSize.height);
+    //bikeSprite.position = ccp(posX, screenSize.height + bikeSprite.contentSize.height);
     [self addChild:bikeSprite z:1];
     id actionMove = [CCMoveTo actionWithDuration:2 position:ccp(bikeSprite.position.x, -bikeSprite.contentSize.height)];
     id actionClean = [CCCallFuncND actionWithTarget:bikeSprite selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
     [bikeSprite runAction:[CCSequence actions:actionMove,actionClean, nil]];
     // LEAKING!!
-    [enemyArray addObject:bikeSprite];
-     */
+    //[enemyArray addObject:bikeSprite];
+     
 }
 
 #define kHeroMovementAction 1
