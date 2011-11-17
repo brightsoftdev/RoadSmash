@@ -7,23 +7,18 @@
 //
 
 
-// Import the interfaces
 #import "GameLayer.h"
 #import "Constants.h"
 #import "RoadsideObstacle.h"
 #import "EnemyVehicle.h"
 #import "VariableStore.h"
 
-// HelloWorldLayer implementation
 @implementation GameLayer
 
 @synthesize playerSprite;
 @synthesize rockSprite;
 @synthesize waterSprite;
 @synthesize bikeSprite;
-//@synthesize enemyArray;
-@synthesize tileMap;
-@synthesize background;
 
 +(CCScene *) scene
 {
@@ -47,15 +42,8 @@
         
         obstacleLayer = [CCLayer node];
         [self addChild:obstacleLayer];
-
-        //roadLayer1 = [CCLayer node];
-        //[self addChild:roadLayer1 z:1];
-        
-        //roadLayer2 = [CCLayer node];
-        //[self addChild:roadLayer2 z:1];
         
         screenSize = [[CCDirector sharedDirector] winSize];
-        //enemyArray = [[NSMutableArray alloc] init];
         isJumping = NO;
         score=0;
         
@@ -64,20 +52,17 @@
         
         //[self scheduleUpdate];
         [self schedule:@selector(update:) interval:1/60];
-        NSLog(@"here too");
         
         [self loadBackground];
-        
-        //[self loadTileMap];
-        
         
         [self loadPlayerSprite];
         
         [self schedule:@selector(loadLevelObstacles:) interval:0.5f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
 
+        //currentRoadTexture = 999;
+        roadPieceCount = 1;
         
-        currentRoadTexture = 999;
         roadSegment1 = 1;
         roadSegment2 = 1;
         checkCount1 = 0;
@@ -123,32 +108,6 @@
     }
 }
 
-- (void) loadTileMap
-{
-    
-    self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"1-1.tmx"];
-    self.background = [tileMap layerNamed:@"Background"];
-    [self addChild:tileMap z:-1];
-    
-    [self.tileMap runAction:[CCRepeatForever actionWithAction:[CCMoveBy actionWithDuration:0.6 position:ccp(0,-80)]]];
-
-    [self schedule: @selector(step:)];
-    
-}
-
--(void) step:(ccTime) dt
-{
-    //if(self.tileMap.position.y < ((-1) * ((self.tileMap.mapSize.height * self.tileMap.tileSize.height)-screenSize.height))) 
-    if(self.tileMap.position.y < -screenSize.height) 
-    {
-        [self.tileMap setPosition:ccp(0,0)];
-        
-        [self.tileMap runAction:[CCRepeatForever actionWithAction:[CCMoveBy actionWithDuration:0.6 position:ccp(0,-80)]]];
-        
-    }
-    
-}
-
 
 #define TAG_ROADLAYER 111
 
@@ -175,22 +134,6 @@
     [road1 runAction:[CCRepeatForever actionWithAction:seq1]];
     [road2 runAction:[CCRepeatForever actionWithAction:seq2]];
     
-    // TEMP
-    //roadLayer1.position = ccp(screenSize.width/2, screenSize.height/2);
-    //roadLayer2.position = ccp(screenSize.width/2, screenSize.height*1.49);
-    
-    id actionRoadMove1 = [CCMoveBy actionWithDuration:gameSpeed position:ccp(0, -(screenSize.height/2))];
-    id layerPlace1 = [CCPlace actionWithPosition:ccp(0, screenSize.height/2)];
-    id layerSeq1 = [CCSequence actions:actionRoadMove1, layerPlace1, replaceOneCheck, nil];
-	//[roadLayer1 runAction:[CCRepeatForever actionWithAction:layerSeq1]];
-    
-    id actionRoadMove2 = [CCMoveBy actionWithDuration:gameSpeed position:ccp(0, screenSize.height/2)];
-    id layerPlace2 = [CCPlace actionWithPosition:ccp(0, screenSize.height*1.5)];
-    id layerSeq2 = [CCSequence actions:actionRoadMove2, layerPlace2, replaceTwoCheck, nil];
-    //[roadLayer2 runAction:[CCRepeatForever actionWithAction:layerSeq1]];
-        
-    //TEMP
-    
     [self addChild:road1 z:-1];
 	[self addChild:road2 z:-1];
     
@@ -202,11 +145,12 @@
 {
     
     ++checkCount1;
-    currentRoadTexture = 1; // to know which road texture to put obstacle sprites on
+    //currentRoadTexture = 1; // to know which road texture to put obstacle sprites on
     
     if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
     {
         checkCount1 = 1;
+        
         
         switch (roadSegment1) {
             case 1:
@@ -214,6 +158,30 @@
                 break;
                 
             case 2:
+                roadSegment1 =3;
+                break;
+            
+            case 3:
+                roadSegment1 =4;
+                break;
+                
+            case 4:
+                roadSegment1 =5;
+                break;
+                
+            case 5:
+                roadSegment1 =6;
+                break;
+                
+            case 6:
+                roadSegment1 =7;
+                break;
+                
+            case 7:
+                roadSegment1 =8;
+                break;
+                
+            case 8:
                 roadSegment1 =1;
                 break;
                 
@@ -223,9 +191,21 @@
                 
         }
         
+        
+        /*
+        ++roadPieceCount;
+        if (roadPieceCount >8)
+        {
+            roadPieceCount = 1;
+        }
+        */
+        
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment1]]];
+        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadPieceCount]]];
+
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
+        
     }
 }
 
@@ -233,11 +213,12 @@
 {
     
     ++checkCount2;
-    currentRoadTexture = 2; // to know which road texture to put obstacle sprites on
+    //currentRoadTexture = 2; // to know which road texture to put obstacle sprites on
     
     if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
     {
         checkCount2 = 0;
+        
         
         switch (roadSegment2) {
             case 1:
@@ -245,17 +226,53 @@
                 break;
                 
             case 2:
+                roadSegment2 =3;
+                break;
+                
+            case 3:
+                roadSegment2 =4;
+                break;
+                
+            case 4:
+                roadSegment2 =5;
+                break;
+                
+            case 5:
+                roadSegment2 =6;
+                break;
+                
+            case 6:
+                roadSegment2 =7;
+                break;
+                
+            case 7:
+                roadSegment2 =8;
+                break;
+                
+            case 8:
                 roadSegment2 =1;
                 break;
-                                
+                                                
             default:
                 NSLog(@"NO SEGMENT");
                 break;
         }
         
+        
+        /*
+        ++roadPieceCount;
+        if (roadPieceCount >8)
+        {
+            roadPieceCount = 1;
+        }
+        */
+        
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment2]]];
+        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadPieceCount]]];
+
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
+           
     }
 }
 
@@ -483,8 +500,6 @@
 
 - (void) dealloc
 {
-    //enemyArray = nil;
-    //[enemyArray release];
 	[super dealloc];
 }
 @end

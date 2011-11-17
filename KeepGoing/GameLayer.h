@@ -6,8 +6,6 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-
-// When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 #import "HUDLayer.h"
 
@@ -32,22 +30,17 @@
     CCSprite *rockSprite;
     CCSprite *waterSprite;
     CCSprite *bikeSprite;
-    //NSMutableArray *enemyArray;
     
     // Environment vars
-    CCLayer *roadLayer1;
-    CCLayer *roadLayer2;
     CCSprite *road1;
     CCSprite *road2;
     int checkCount1;
     int checkCount2;
     int roadSegment1;
     int roadSegment2;
-    
-    CCTMXTiledMap *tileMap;
-    CCTMXLayer *background;
-    
-    int currentRoadTexture;
+        
+    int roadPieceCount;
+    //int currentRoadTexture;
 
 }
 
@@ -55,9 +48,6 @@
 @property (nonatomic, retain) CCSprite *rockSprite;
 @property (nonatomic, retain) CCSprite *waterSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
-//@property (nonatomic, retain) NSMutableArray *enemyArray;
-@property (nonatomic, retain) CCTMXTiledMap *tileMap;
-@property (nonatomic, retain) CCTMXLayer *background;
 
 +(CCScene *) scene;
 - (void) stopGame;
