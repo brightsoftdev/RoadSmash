@@ -19,6 +19,10 @@
 @synthesize rockSprite;
 @synthesize bikeSprite;
 
+@synthesize tileMap;
+@synthesize background;
+@synthesize meta;
+
 +(CCScene *) scene
 {
 	CCScene *scene = [CCScene node];
@@ -52,11 +56,12 @@
         //[self scheduleUpdate];
         [self schedule:@selector(update:) interval:1/60];
         
-        [self loadBackground];
+        //[self loadBackground];
+        [self loadTilemap];
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:1.25f]; // need level time interval
+        //[self schedule:@selector(loadLevelObstacles:) interval:1.25f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
         currentRoadTexture = 999;
@@ -105,7 +110,30 @@
     }
 }
 
+- (void) loadTilemap
+{
+    self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"map1.tmx"];
+    self.background = [tileMap layerNamed:@"Background"];
+    [self addChild:tileMap z:-1];
+    
+    //
+    //CCTMXObjectGroup *objects = [tileMap objectGroupNamed:@"Objects"];
+    //NSAssert(objects != nil, @"'Objects' object group not found");
+    //NSMutableDictionary *spawnPoint = [objects objectNamed:@"Obstacles"];
+    //NSAssert(spawnPoint != nil, @"Obstacles object not found");
+    
+    self.meta = [tileMap layerNamed:@"Meta"];
+    //meta.visible = NO;
+    //
+    
+    [self.tileMap runAction:[CCRepeatForever actionWithAction:[CCMoveBy actionWithDuration:5 position:ccp(0,-80)]]];
+}
 
+- (CGPoint)tileCoordForPosition:(CGPoint)position {
+    int x = position.x / tileMap.tileSize.width;
+    int y = ((tileMap.mapSize.height * tileMap.tileSize.height) - position.y) / tileMap.tileSize.height;
+    return ccp(x, y);
+}
 
 - (void) loadBackground
 {
@@ -390,6 +418,20 @@
                 //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
             } 
             
+            // TILEMAP
+            CGPoint tileCoord = [self tileCoordForPosition:playerSprite.position];
+            int tileGid = [meta tileGIDAt:tileCoord];
+            if (tileGid) {
+                NSDictionary *properties = [tileMap propertiesForGID:tileGid];
+                if (properties) {
+                    NSString *collision = [properties valueForKey:@"Collidable"];
+                    if (collision && [collision compare:@"True"] == NSOrderedSame) 
+                    {
+                        [self stopGame];
+                    }
+                }
+            }
+            // TILEMAP
         }
         
     } else {
@@ -449,6 +491,7 @@
 
 - (void) dealloc
 {
-	[super dealloc];
+	self.meta = nil;
+    [super dealloc];
 }
 @end

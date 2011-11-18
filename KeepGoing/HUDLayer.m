@@ -21,7 +21,7 @@
         
 		screenSize = [[CCDirector sharedDirector] winSize];
 		[self loadScoreLabel];
-        //[self loadHUDmask];
+        [self loadHUDmask];
 		
 	}
 	return self;
@@ -41,11 +41,11 @@
 
 - (void) loadHUDmask
 {
-    CCLayerColor *maskBg = [CCLayerColor layerWithColor:ccc4(255, 0, 255, 180) width:screenSize.width height:screenSize.height/16];
+    CCLayerColor *maskBg = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 200) width:screenSize.width height:screenSize.height/16];
     [self addChild:maskBg];
     
-    CCLayerColor *mask = [CCLayerColor layerWithColor:ccc4(255, 255, 255, 180) width:screenSize.width height:screenSize.height/18];
-    [self addChild:mask];
+    //CCLayerColor *mask = [CCLayerColor layerWithColor:ccc4(0, 51, 102, 180) width:screenSize.width height:screenSize.height/18];
+    //[self addChild:mask];
 }
 
 - (void) dealloc

@@ -38,12 +38,21 @@
     int roadSegment1;
     int roadSegment2;
     int currentRoadTexture;
+    
+    CCTMXTiledMap *tileMap;
+    CCTMXLayer *background;
+    CCTMXLayer *meta;
+
         
 }
 
 @property (nonatomic, retain) CCSprite *playerSprite;
 @property (nonatomic, retain) CCSprite *rockSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
+
+@property (nonatomic, retain) CCTMXTiledMap *tileMap;
+@property (nonatomic, retain) CCTMXLayer *background;
+@property (nonatomic, retain) CCTMXLayer *meta;
 
 +(CCScene *) scene;
 - (void) stopGame;
