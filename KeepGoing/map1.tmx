@@ -26,7 +26,11 @@
   <object name="Obstacle" x="-4" y="332" width="75" height="54"/>
   <object name="Obstacle" x="-5" y="170" width="75" height="54"/>
   <object name="Obstacle" x="-5" y="11" width="75" height="54"/>
-  <object name="Obstacle" x="157" y="80" width="75" height="54"/>
+  <object name="Obstacle" x="157" y="80" width="75" height="54">
+   <properties>
+    <property name="Collidable" value="True"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Meta" width="4" height="6">
   <data encoding="base64" compression="zlib">

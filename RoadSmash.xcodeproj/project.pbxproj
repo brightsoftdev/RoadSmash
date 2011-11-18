@@ -162,8 +162,8 @@
 		DCF0BCAE1473F9FA00BE2B27 /* lv1-8.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCA81473F9FA00BE2B27 /* lv1-8.png */; };
 		DCF0BCAF1473F9FA00BE2B27 /* lv1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCA91473F9FA00BE2B27 /* lv1-4.png */; };
 		DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* LevelData.plist */; };
-		DCF0BCBA1476636300BE2B27 /* map1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB81476636300BE2B27 /* map1.tmx */; };
 		DCF0BCBB1476636300BE2B27 /* meta.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB91476636300BE2B27 /* meta.png */; };
+		DCF0BCBD14766C1B00BE2B27 /* map1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCBC14766C1B00BE2B27 /* map1.tmx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -447,8 +447,8 @@
 		DCF0BCA81473F9FA00BE2B27 /* lv1-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-8.png"; sourceTree = "<group>"; };
 		DCF0BCA91473F9FA00BE2B27 /* lv1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-4.png"; sourceTree = "<group>"; };
 		DCF0BCB01475331B00BE2B27 /* LevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LevelData.plist; path = ../LevelData.plist; sourceTree = "<group>"; };
-		DCF0BCB81476636300BE2B27 /* map1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map1.tmx; sourceTree = "<group>"; };
 		DCF0BCB91476636300BE2B27 /* meta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meta.png; sourceTree = "<group>"; };
+		DCF0BCBC14766C1B00BE2B27 /* map1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map1.tmx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -935,7 +935,7 @@
 		DCF0BC8E1471335A00BE2B27 /* TMX */ = {
 			isa = PBXGroup;
 			children = (
-				DCF0BCB81476636300BE2B27 /* map1.tmx */,
+				DCF0BCBC14766C1B00BE2B27 /* map1.tmx */,
 				DCF0BCB91476636300BE2B27 /* meta.png */,
 				DCF0BC98147133A400BE2B27 /* tiledImage.png */,
 			);
@@ -1050,8 +1050,8 @@
 				DCF0BCAE1473F9FA00BE2B27 /* lv1-8.png in Resources */,
 				DCF0BCAF1473F9FA00BE2B27 /* lv1-4.png in Resources */,
 				DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */,
-				DCF0BCBA1476636300BE2B27 /* map1.tmx in Resources */,
 				DCF0BCBB1476636300BE2B27 /* meta.png in Resources */,
+				DCF0BCBD14766C1B00BE2B27 /* map1.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

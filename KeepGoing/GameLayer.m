@@ -420,7 +420,7 @@
             
             // TILEMAP
             CGPoint tileCoord = [self tileCoordForPosition:playerSprite.position];
-            int tileGid = [meta tileGIDAt:tileCoord];
+            int tileGid = [background tileGIDAt:tileCoord];
             if (tileGid) {
                 NSDictionary *properties = [tileMap propertiesForGID:tileGid];
                 if (properties) {
