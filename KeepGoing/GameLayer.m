@@ -46,7 +46,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 4.25f;
+        gameSpeed = 2.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
@@ -56,7 +56,7 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:1.25f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:2.5f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
         currentRoadTexture = 999;
