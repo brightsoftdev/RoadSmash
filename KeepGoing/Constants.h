@@ -1,8 +1,12 @@
 #define SCORE_FONT @"scoreBlack.fnt"
 
 // ROAD CONFIG
-#define MAX_SCREENS 8
-#define NUM_OF_ROAD_SEGMENT_LOOPS 2
+#define MAX_SCREENS 3
+#define NUM_OF_ROAD_SEGMENT_LOOPS 4
+
+// CAR CONFIG
+#define DRIVING_SCALE 0.65f
+#define JUMPING_SCALE 2.0f
 
 // ACCELLEROMETER CONTROL
 #define kHeroMovementAction 1

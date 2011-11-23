@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC2F08CD147D2E1800904CE8 /* r1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F08CA147D2E1800904CE8 /* r1-3.png */; };
+		DC2F08CE147D2E1800904CE8 /* r1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F08CB147D2E1800904CE8 /* r1-2.png */; };
+		DC2F08CF147D2E1800904CE8 /* r1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F08CC147D2E1800904CE8 /* r1-1.png */; };
 		DC527F421445C5A100308D27 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F411445C5A100308D27 /* r1.png */; };
 		DC527F4C1445E02A00308D27 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F4B1445E02A00308D27 /* r2.png */; };
 		DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */; };
@@ -169,6 +172,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC2F08CA147D2E1800904CE8 /* r1-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "r1-3.png"; sourceTree = "<group>"; };
+		DC2F08CB147D2E1800904CE8 /* r1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "r1-2.png"; sourceTree = "<group>"; };
+		DC2F08CC147D2E1800904CE8 /* r1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "r1-1.png"; sourceTree = "<group>"; };
 		DC527F411445C5A100308D27 /* r1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r1.png; sourceTree = "<group>"; };
 		DC527F4B1445E02A00308D27 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		DCA60D0F14664AF6001EFA0D /* EnemyVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyVehicle.h; sourceTree = "<group>"; };
@@ -952,6 +958,9 @@
 			isa = PBXGroup;
 			children = (
 				DCF0BCB01475331B00BE2B27 /* LevelData.plist */,
+				DC2F08CA147D2E1800904CE8 /* r1-3.png */,
+				DC2F08CB147D2E1800904CE8 /* r1-2.png */,
+				DC2F08CC147D2E1800904CE8 /* r1-1.png */,
 				DCA60D8D14681341001EFA0D /* lv1-1.png */,
 				DCA60DA314696FD2001EFA0D /* lv1-2.png */,
 				DCF0BCA61473F9FA00BE2B27 /* lv1-3.png */,
@@ -1060,6 +1069,9 @@
 				DCF0BCAE1473F9FA00BE2B27 /* lv1-8.png in Resources */,
 				DCF0BCAF1473F9FA00BE2B27 /* lv1-4.png in Resources */,
 				DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */,
+				DC2F08CD147D2E1800904CE8 /* r1-3.png in Resources */,
+				DC2F08CE147D2E1800904CE8 /* r1-2.png in Resources */,
+				DC2F08CF147D2E1800904CE8 /* r1-1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

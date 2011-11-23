@@ -46,7 +46,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 2.5f;
+        gameSpeed = 1.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
@@ -56,7 +56,7 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:2.5f]; // need level time interval
+        //[self schedule:@selector(loadLevelObstacles:) interval:2.5f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
         currentRoadTexture = 999;
@@ -79,8 +79,8 @@
     
     if (!isJumping)
     {
-        id jumpUp = [CCScaleTo actionWithDuration:0.75f scale:3.0f];
-        id jumpDown = [CCScaleTo actionWithDuration:0.75f scale:1.0f];
+        id jumpUp = [CCScaleTo actionWithDuration:0.75f scale:JUMPING_SCALE];
+        id jumpDown = [CCScaleTo actionWithDuration:0.75f scale:DRIVING_SCALE];
         id setJumpingBOOL = [CCCallFunc actionWithTarget:self selector:@selector(setIsJumpingStatus)];
         id seq = [CCSequence actions:setJumpingBOOL, jumpUp, jumpDown, setJumpingBOOL, nil];
         
@@ -106,16 +106,19 @@
 }
 
 
-
+#define TOP_UP 1.5
 - (void) loadBackground
 {
 
-    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"lv1-1.png"]];
-	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"lv1-1.png"]];
+    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
+	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
+    
+    road1.scaleX = 1.2;
+    road2.scaleX = 1.2;
 	[road1.texture setAliasTexParameters];
     [road2.texture setAliasTexParameters];
     [road1 setPosition:ccp(screenSize.width/2,(screenSize.height/2))];
-    [road2 setPosition:ccp(screenSize.width/2,(screenSize.height*1.5))];
+    [road2 setPosition:ccp(screenSize.width/2,(screenSize.height*TOP_UP))];
 
     id move1 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width/2, -(screenSize.height/2))];
     id place1 = [CCPlace actionWithPosition:ccp(screenSize.width/2,(screenSize.height/2))];
@@ -123,7 +126,7 @@
     id seq1 = [CCSequence actions:move1,place1, replaceOneCheck,nil];
     
     id move2 = [CCMoveTo actionWithDuration:gameSpeed position:ccp(screenSize.width/2, (screenSize.height/2))];
-    id place2 = [CCPlace actionWithPosition:ccp(screenSize.width/2,(screenSize.height*1.5))];
+    id place2 = [CCPlace actionWithPosition:ccp(screenSize.width/2,(screenSize.height*TOP_UP))];
     id replaceTwoCheck = [CCCallFunc actionWithTarget:self selector:@selector(newRoadSegmentTwoCheck)];
     id seq2 = [CCSequence actions:move2,place2, replaceTwoCheck, nil];
     
@@ -131,7 +134,7 @@
     [road2 runAction:[CCRepeatForever actionWithAction:seq2]];
     
     [self addChild:road1 z:-1];
-	[self addChild:road2 z:-1];
+	[self addChild:road2 z:-2];
     
 }
 
@@ -153,7 +156,7 @@
             roadSegment1 = 1;
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment1]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment1]]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
         
@@ -177,7 +180,7 @@
             roadSegment2 = 1;
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"lv1-%i", roadSegment2]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment2]]];
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
            
@@ -188,6 +191,7 @@
 {
     
     playerSprite = [CCSprite spriteWithFile:@"c3.png"];
+    playerSprite.scale = DRIVING_SCALE;
     [playerSprite.texture setAliasTexParameters];
     playerSprite.position = ccp(screenSize.width/2, playerSprite.contentSize.height*2);
     [self addChild:playerSprite z:1];
@@ -256,40 +260,54 @@
 {
     // // TREE 
     
+    
+     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
+     [tree.texture setAliasTexParameters];
+     tree.position = ccp(screenSize.width/8, screenSize.height*1.25);
+     [obstacleLayer addChild:tree];
+     
+     id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+     id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+     id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
+     [tree runAction:actionSeq];
+     
+     CCSprite *tree2 = [CCSprite spriteWithFile:@"tree.png"];
+     [tree2.texture setAliasTexParameters];
+     tree2.position = ccp(screenSize.width - screenSize.width/8, screenSize.height*1.25);
+     [obstacleLayer addChild:tree2];
+     
+     id actionMove2 = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
+     id actionClean2 = [CCCallFuncND actionWithTarget:tree2 selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+     id actionSeq2 = [CCSequence actions:actionMove2, actionClean2, nil];
+     [tree2 runAction:actionSeq2];
+     
+    
+    /* //OLD
+   
     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
     [tree.texture setAliasTexParameters];
-    tree.position = ccp(screenSize.width/8, screenSize.height*1.25);
-    [obstacleLayer addChild:tree];
-    
-    id actionMove = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
-    id actionClean = [CCCallFuncND actionWithTarget:tree selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-    id actionSeq = [CCSequence actions:actionMove, actionClean, nil];
-    [tree runAction:actionSeq];
     
     CCSprite *tree2 = [CCSprite spriteWithFile:@"tree.png"];
     [tree2.texture setAliasTexParameters];
-    tree2.position = ccp(screenSize.width - screenSize.width/8, screenSize.height*1.25);
-    [obstacleLayer addChild:tree2];
     
-    id actionMove2 = [CCMoveBy actionWithDuration:gameSpeed*1.25 position:ccp(0, -screenSize.height*1.25)];
-    id actionClean2 = [CCCallFuncND actionWithTarget:tree2 selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
-    id actionSeq2 = [CCSequence actions:actionMove2, actionClean2, nil];
-    [tree2 runAction:actionSeq2];
     
-    /* OLD
-     
-     CCSprite *tree = [CCSprite spriteWithFile:@"tree.png"];
-     [tree.texture setAliasTexParameters];
-     
-     if (currentRoadTexture ==2) {
-     
-     [road2 addChild:tree z:1];
-     tree.position = ccp(screenSize.width/4, 0);
-     
-     } 
-     */
-    // // TREE
-
+    if (currentRoadTexture ==2) {
+        
+        [road2 addChild:tree z:1];
+        tree.position = ccp(screenSize.width/4, screenSize.height/2);
+        
+        [road2 addChild:tree2 z:99];
+        tree2.position = ccp(screenSize.width/4, screenSize.height);
+        
+    } else {
+        [road1 addChild:tree z:1];
+        tree.position = ccp(screenSize.width/4, screenSize.height/2);
+        
+        [road1 addChild:tree2 z:99];
+        tree2.position = ccp(screenSize.width/4, screenSize.height);
+    }
+    */ //TREE
+    
 }
 
 - (void) loadLevelEnemy:(ccTime) t
