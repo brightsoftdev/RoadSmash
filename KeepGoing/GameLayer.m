@@ -39,6 +39,9 @@
         hudLayer = [[HUDLayer alloc] init];
         [self addChild: hudLayer z:999 tag:TAG_HUDLAYER];
         
+        roadLayer = [CCLayer node];
+        [self addChild:roadLayer];
+        
         obstacleLayer = [CCLayer node];
         [self addChild:obstacleLayer];
         
@@ -46,7 +49,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 1.5f;
+        gameSpeed = 1.25f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
@@ -56,7 +59,7 @@
         
         [self loadPlayerSprite];
         
-        //[self schedule:@selector(loadLevelObstacles:) interval:2.5f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:5.0f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
         currentRoadTexture = 999;
@@ -106,6 +109,7 @@
 }
 
 
+
 #define TOP_UP 1.5
 - (void) loadBackground
 {
@@ -113,8 +117,8 @@
     road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
 	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
     
-    road1.scaleX = 1.2;
-    road2.scaleX = 1.2;
+    road1.scaleX = 1.25;
+    road2.scaleX = 1.25;
 	[road1.texture setAliasTexParameters];
     [road2.texture setAliasTexParameters];
     [road1 setPosition:ccp(screenSize.width/2,(screenSize.height/2))];
@@ -133,8 +137,8 @@
     [road1 runAction:[CCRepeatForever actionWithAction:seq1]];
     [road2 runAction:[CCRepeatForever actionWithAction:seq2]];
     
-    [self addChild:road1 z:-1];
-	[self addChild:road2 z:-2];
+    [roadLayer addChild:road1 z:-1];
+	[roadLayer addChild:road2 z:-1];
     
 }
 
@@ -159,6 +163,7 @@
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment1]]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
+        //[road1 removeAllChildrenWithCleanup:YES];
         
     }
 }
@@ -183,6 +188,7 @@
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment2]]];
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
+        //[road2 removeAllChildrenWithCleanup:YES];
            
     }
 }
@@ -208,8 +214,9 @@
 - (void) loadLevelObstacles:(ccTime) t
 {
     
-    [self loadTrees];
+    //[self loadTrees];
     
+    [self loadBridge];
     /* //ROCK 
      CCSprite *rock = [CCSprite spriteWithFile:@"rock.png"];
      [rock.texture setAliasTexParameters];
@@ -254,6 +261,39 @@
      }
      
     */ //OTHER
+}
+
+- (void) loadBridge
+{
+    
+    CCSprite *bridge = [CCSprite spriteWithFile:@"bridge1.png"];
+    [bridge.texture setAliasTexParameters];
+    
+    
+    [obstacleLayer addChild:bridge z:999];
+    bridge.position = ccp(screenSize.width/2, screenSize.height*1.5);
+    id actionMove = [CCMoveTo actionWithDuration:gameSpeed*1.5 position:ccp(screenSize.width/2, 0)];
+    id actionMoveOff = [CCMoveTo actionWithDuration:gameSpeed*1.5 position:ccp(screenSize.width/2, -screenSize.height*1.5)];
+    id actionClean = [CCCallFuncND actionWithTarget:bridge selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    id actionSeq = [CCSequence actions:actionMove, actionMoveOff,actionClean, nil];
+    [bridge runAction:actionSeq];
+     
+    
+    /*
+    //[self unschedule:@selector(loadLevelObstacles:)];
+    if (currentRoadTexture == 1)
+    {
+        [road1 addChild:bridge z:99];
+        bridge.position = ccp(screenSize.width/2, 0);
+        
+    } else if (currentRoadTexture ==2) {
+        
+        [road2 addChild:bridge z:99];
+        bridge.position = ccp(screenSize.width/2, 0);
+        
+    }
+     */
+     
 }
 
 - (void) loadTrees
@@ -372,8 +412,7 @@
     // Keep adding up the playerVelocity to the player's position
     CGPoint pos = playerSprite.position;
     pos.x += playerVelocity.x;
-    //
-    pos.y += playerVelocity.y;
+    //pos.y += playerVelocity.y;
     
     // The Player should also be stopped from going outside the screen
     float imageWidthHalved = [playerSprite texture].contentSize.width * 0.5f;
@@ -385,6 +424,7 @@
     {
         pos.x = leftBorderLimit;
         playerVelocity = CGPointZero;
+        
     }
     else if (pos.x > rightBorderLimit)
     {
@@ -396,9 +436,9 @@
     if (!isJumping)
     {
         
+        // obstacle collision
         for (CCSprite *obstacle in obstacleLayer.children)
         {
-            
             CGPoint worldCoord = [obstacle convertToWorldSpace:self.position];
             CGRect absoluteBox = CGRectMake(worldCoord.x, worldCoord.y, obstacle.contentSize.width, obstacle.contentSize.height);
             
@@ -407,13 +447,18 @@
                 [self stopGame];
                 //[playerSprite runAction:[CCMoveBy actionWithDuration:0 position:ccp(50,50)]];
             } 
-            
         }
         
+        // roadside collision
+        if ((playerSprite.position.x < playerSprite.contentSize.width) || (playerSprite.position.x > screenSize.width - playerSprite.contentSize.width))
+        {
+            [self stopGame];
+        }
+            
+                
     } else {
         
-        //NSLog(@"array count is %i", [enemyArray count]);
-        
+        // air obstacle collision
     }
     
     // assigning the modified position back
@@ -467,6 +512,7 @@
 
 - (void) dealloc
 {
-	[super dealloc];
+	[hudLayer release];
+    [super dealloc];
 }
 @end

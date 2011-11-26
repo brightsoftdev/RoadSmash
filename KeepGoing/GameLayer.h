@@ -31,6 +31,7 @@
     CCSprite *bikeSprite;
     
     // Environment vars
+    CCLayer *roadLayer;
     CCSprite *road1;
     CCSprite *road2;
     int checkCount1;

@@ -1,11 +1,11 @@
 #define SCORE_FONT @"scoreBlack.fnt"
 
 // ROAD CONFIG
-#define MAX_SCREENS 3
+#define MAX_SCREENS 1 // total number of road screens
 #define NUM_OF_ROAD_SEGMENT_LOOPS 4
 
 // CAR CONFIG
-#define DRIVING_SCALE 0.65f
+#define DRIVING_SCALE 0.75f
 #define JUMPING_SCALE 2.0f
 
 // ACCELLEROMETER CONTROL
