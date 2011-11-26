@@ -49,7 +49,7 @@
         isJumping = NO;
         score=0;
         
-        gameSpeed = 1.25f;
+        gameSpeed = 1.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         
         //[self scheduleUpdate];
