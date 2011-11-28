@@ -22,6 +22,7 @@
 @property (nonatomic, retain) CCSprite *sprite;
 @property (nonatomic, retain) NSString *type;
 
+-(id) initWithType:(NSString *) t;
 - (void) loadSpriteForType;
 
 

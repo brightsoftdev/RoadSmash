@@ -59,7 +59,7 @@
         
         [self loadPlayerSprite];
         
-        [self schedule:@selector(loadLevelObstacles:) interval:5.0f]; // need level time interval
+        [self schedule:@selector(loadLevelObstacles:) interval:15.0f]; // need level time interval
         //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
         currentRoadTexture = 999;
@@ -117,8 +117,8 @@
     road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
 	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
     
-    road1.scaleX = 1.25;
-    road2.scaleX = 1.25;
+    road1.scaleX = 1.15;
+    road2.scaleX = 1.15;
 	[road1.texture setAliasTexParameters];
     [road2.texture setAliasTexParameters];
     [road1 setPosition:ccp(screenSize.width/2,(screenSize.height/2))];
@@ -207,7 +207,7 @@
     id actionL = [CCRotateBy actionWithDuration:0.02f angle:-1.5];
     id seq = [CCRepeatForever actionWithAction:[CCSequence actions: actionR, [actionR reverse], actionL, [actionL reverse], nil]];
     
-    [playerSprite runAction:seq];
+    //[playerSprite runAction:seq];
     
 }
 
