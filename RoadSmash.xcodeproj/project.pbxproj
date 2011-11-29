@@ -167,7 +167,7 @@
 		DCF0BCAD1473F9FA00BE2B27 /* lv1-7.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCA71473F9FA00BE2B27 /* lv1-7.png */; };
 		DCF0BCAE1473F9FA00BE2B27 /* lv1-8.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCA81473F9FA00BE2B27 /* lv1-8.png */; };
 		DCF0BCAF1473F9FA00BE2B27 /* lv1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCA91473F9FA00BE2B27 /* lv1-4.png */; };
-		DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* LevelData.plist */; };
+		DCF0BCB11475331B00BE2B27 /* L1Data.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* L1Data.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -456,7 +456,7 @@
 		DCF0BCA71473F9FA00BE2B27 /* lv1-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-7.png"; sourceTree = "<group>"; };
 		DCF0BCA81473F9FA00BE2B27 /* lv1-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-8.png"; sourceTree = "<group>"; };
 		DCF0BCA91473F9FA00BE2B27 /* lv1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lv1-4.png"; sourceTree = "<group>"; };
-		DCF0BCB01475331B00BE2B27 /* LevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LevelData.plist; path = ../LevelData.plist; sourceTree = "<group>"; };
+		DCF0BCB01475331B00BE2B27 /* L1Data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = L1Data.plist; path = ../L1Data.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -977,7 +977,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2F08E21481001700904CE8 /* TEMP */,
-				DCF0BCB01475331B00BE2B27 /* LevelData.plist */,
+				DCF0BCB01475331B00BE2B27 /* L1Data.plist */,
 				DC2F09601481EB0700904CE8 /* r1-4.png */,
 				DC2F095E14814DF100904CE8 /* r1-3.png */,
 				DC2F08E01481000900904CE8 /* r1-2.png */,
@@ -1078,7 +1078,7 @@
 				DCF0BCAD1473F9FA00BE2B27 /* lv1-7.png in Resources */,
 				DCF0BCAE1473F9FA00BE2B27 /* lv1-8.png in Resources */,
 				DCF0BCAF1473F9FA00BE2B27 /* lv1-4.png in Resources */,
-				DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */,
+				DCF0BCB11475331B00BE2B27 /* L1Data.plist in Resources */,
 				DC2F08CF147D2E1800904CE8 /* r1-1.png in Resources */,
 				DC2F08E11481000900904CE8 /* r1-2.png in Resources */,
 				DC2F095D1481293500904CE8 /* bridge1.png in Resources */,
