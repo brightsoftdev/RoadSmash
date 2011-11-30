@@ -114,8 +114,8 @@
 - (void) loadBackground
 {
 
-    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
-	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"r1-1.png"]];
+    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
+	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
     
     road1.scaleX = 1.15;
     road2.scaleX = 1.15;
@@ -160,7 +160,7 @@
             roadSegment1 = 1;
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment1]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment1]]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
         //[road1 removeAllChildrenWithCleanup:YES];
@@ -185,7 +185,7 @@
             roadSegment2 = 1;
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"r1-%i", roadSegment2]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment2]]];
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
         //[road2 removeAllChildrenWithCleanup:YES];
