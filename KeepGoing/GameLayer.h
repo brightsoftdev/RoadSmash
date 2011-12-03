@@ -39,12 +39,18 @@
     int roadSegment1;
     int roadSegment2;
     int currentRoadTexture;
+    
+    NSArray *roadArray;
+    int currentRoadArrayIndex1;
+    int currentRoadArrayIndex2;
         
 }
 
 @property (nonatomic, retain) CCSprite *playerSprite;
 @property (nonatomic, retain) CCSprite *rockSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
+
+@property (nonatomic, retain) NSArray *roadArray;
 
 +(CCScene *) scene;
 - (void) stopGame;

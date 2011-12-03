@@ -19,6 +19,8 @@
 @synthesize rockSprite;
 @synthesize bikeSprite;
 
+@synthesize roadArray;
+
 +(CCScene *) scene
 {
 	CCScene *scene = [CCScene node];
@@ -35,38 +37,39 @@
 		
         self.isAccelerometerEnabled = YES;
         self.isTouchEnabled = YES;
+        screenSize = [[CCDirector sharedDirector] winSize];
         
+        // LAYERS
         hudLayer = [[HUDLayer alloc] init];
         [self addChild: hudLayer z:999 tag:TAG_HUDLAYER];
-        
         roadLayer = [CCLayer node];
         [self addChild:roadLayer];
-        
         obstacleLayer = [CCLayer node];
         [self addChild:obstacleLayer];
         
-        screenSize = [[CCDirector sharedDirector] winSize];
+        // LEVEL ARRAY
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Level1" ofType:@"plist"];
+        roadArray = [[NSArray alloc] initWithContentsOfFile:path];
+        currentRoadArrayIndex1 = 0;
+        currentRoadArrayIndex2 = 0;
+        
+        // VARS
         isJumping = NO;
         score=0;
-        
         gameSpeed = 1.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
-        
-        //[self scheduleUpdate];
-        [self schedule:@selector(update:) interval:1/60];
-        
-        [self loadBackground];
-        
-        [self loadPlayerSprite];
-        
-        [self schedule:@selector(loadLevelObstacles:) interval:15.0f]; // need level time interval
-        //[self schedule:@selector(loadLevelEnemy:) interval:1];
-        
         currentRoadTexture = 999;
-        roadSegment1 = 1;
-        roadSegment2 = 1;
+        roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+        roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
         checkCount1 = 0;
         checkCount2 = 0;
+        
+        // GO
+        [self schedule:@selector(update:) interval:1/60];
+        [self loadBackground];
+        [self loadPlayerSprite];
+        //[self schedule:@selector(loadLevelObstacles:) interval:15.0f]; // need level time interval
+        //[self schedule:@selector(loadLevelEnemy:) interval:1];
         
 	}
 	return self;
@@ -153,18 +156,28 @@
     {
         checkCount1 = 1;
         
-        if (roadSegment1 < MAX_SCREENS)
+        if (roadSegment1 <= MAX_SCREENS)
         {
-            ++roadSegment1;
+            //++roadSegment1;
+            ++currentRoadArrayIndex1;
+            roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+            NSLog(@"road segment 1 is %i", roadSegment1);
+
         } else {
-            roadSegment1 = 1;
+            //roadSegment1 = 1;
+            currentRoadArrayIndex1 = 0;
+            roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+
         }
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment1]]];
+        NSLog(@"creating texture from rs1 %i", roadSegment1);
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
         //[road1 removeAllChildrenWithCleanup:YES];
         
+    } else {
+        NSLog(@"NOT SWAPPING R1, index is %i", currentRoadArrayIndex1);
     }
 }
 
@@ -178,18 +191,26 @@
     {
         checkCount2 = 0;
         
-        if (roadSegment2 < MAX_SCREENS)
+        if (roadSegment2 <= MAX_SCREENS)
         {
-            ++roadSegment2;
+            //++roadSegment2;
+            ++currentRoadArrayIndex2;
+            roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
+            NSLog(@"road segment 2 is %i", roadSegment2);
         } else {
-            roadSegment2 = 1;
+            //roadSegment2 = 1;
+            currentRoadArrayIndex2 = 0;
+            roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
         }
         
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment2]]];
+        NSLog(@"creating texture from rs2 %i", roadSegment2);
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
         //[road2 removeAllChildrenWithCleanup:YES];
            
+    } else {
+        NSLog(@"NOT SWAPPING R2, index is %i", currentRoadArrayIndex2);
     }
 }
 
@@ -512,7 +533,8 @@
 
 - (void) dealloc
 {
-	[hudLayer release];
+	[roadArray release];
+    [hudLayer release];
     [super dealloc];
 }
 @end

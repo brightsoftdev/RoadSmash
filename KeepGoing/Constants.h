@@ -1,7 +1,7 @@
 #define SCORE_FONT @"scoreBlack.fnt"
 
 // ROAD CONFIG
-#define MAX_SCREENS 4 // total number of road screens
+#define MAX_SCREENS 5 -1// total number of road screens
 #define NUM_OF_ROAD_SEGMENT_LOOPS 4
 
 // CAR CONFIG
