@@ -19,8 +19,10 @@
 @synthesize rockSprite;
 @synthesize bikeSprite;
 
-@synthesize roadArray;
-@synthesize loopsArray;
+//@synthesize roadArray;
+//@synthesize loopsArray;
+
+@synthesize levelDict;
 
 +(CCScene *) scene
 {
@@ -48,25 +50,33 @@
         obstacleLayer = [CCLayer node];
         [self addChild:obstacleLayer];
         
-        // LEVEL ARRAYS
+        /* // LEVEL ARRAYS
         NSString *path = [[NSBundle mainBundle] pathForResource:@"RoadSegments" ofType:@"plist"];
         roadArray = [[NSArray alloc] initWithContentsOfFile:path];
-        currentRoadArrayIndex1 = 0;
-        currentRoadArrayIndex2 = 0;
         NSString *path2 = [[NSBundle mainBundle] pathForResource:@"Loops" ofType:@"plist"];
         loopsArray = [[NSArray alloc] initWithContentsOfFile:path2];
+        */
+        
+        // LEVEL DICTIONARY
+        NSString *levelDictPath = [[NSBundle mainBundle] pathForResource:@"LevelData" ofType:@"plist"];
+        levelDict = [[NSDictionary alloc] initWithContentsOfFile:levelDictPath];
         
         // VARS
+        currentRoadIndex1 = 0;
+        currentRoadIndex2 = 0;
+        
         isJumping = NO;
         score=0;
         gameSpeed = 1.5f;
         [[VariableStore sharedInstance] setGameSpeed:gameSpeed];
         currentRoadTexture = 999;
-        roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
-        roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
+        //roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue]; //
+        //roadSegment2 = [[roadArray objectAtIndex:currentRoadIndex2]intValue]; //
+        //roadSegment1 = 
         checkCount1 = 0;
         checkCount2 = 0;
-        maxScreens = ([roadArray count] -1);
+        //maxScreens = ([roadArray count] -1);
+        maxScreens = ([levelDict count]-1);
         
         // GO
         [self schedule:@selector(update:) interval:1/60];
@@ -156,26 +166,35 @@
     ++checkCount1;
     currentRoadTexture = 1;
     
-    int numOfLoops = [self getLoopValueForIndex:currentRoadArrayIndex1];
-    
+    int numOfLoops = [self getLoopValueForIndex:currentRoadIndex1];
+
     if (checkCount1 >= numOfLoops)
     {
         checkCount1 = 1;
         
-        if (currentRoadArrayIndex1 < maxScreens)
+        if (currentRoadIndex1 < maxScreens)
         {
 
-            ++currentRoadArrayIndex1;
-            roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+            ++currentRoadIndex1;
+            //roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+            //NSArray *tempArray = [levelDict objectForKey:[NSString stringWithFormat:@"%i", currentRoadArrayIndex1]];
+            //roadString = [tempArray objectAtIndex:INDEX_ROAD_SEGMENT_ID];
+            //[tempArray release];
             
         } else {
 
-            currentRoadArrayIndex1 = 0;
-            roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
+            currentRoadIndex1 = 0;
+            //roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
             
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment1]]];
+        NSArray *tempArray = [levelDict objectForKey:[NSString stringWithFormat:@"%i", currentRoadIndex1]];
+        NSString *roadString;
+        roadString = [tempArray objectAtIndex:INDEX_ROAD_SEGMENT_ID];
+        //[tempArray release];
+        
+        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment1]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:roadString]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
         
@@ -189,27 +208,33 @@
     ++checkCount2;
     currentRoadTexture = 2;
     
-    int numOfLoops = [self getLoopValueForIndex:currentRoadArrayIndex2];
+    int numOfLoops = [self getLoopValueForIndex:currentRoadIndex2];
 
     
     if (checkCount2 >= (numOfLoops -1))
     {
         checkCount2 = 0;
         
-        if (currentRoadArrayIndex2 < maxScreens)
+        if (currentRoadIndex2 < maxScreens)
         {
             
-            ++currentRoadArrayIndex2;
-            roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
+            ++currentRoadIndex2;
+            //roadSegment2 = [[roadArray objectAtIndex:currentRoadIndex2]intValue];
             
         } else {
 
-            currentRoadArrayIndex2 = 0;
-            roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
+            currentRoadIndex2 = 0;
+            //roadSegment2 = [[roadArray objectAtIndex:currentRoadIndex2]intValue];
 
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment2]]];
+        NSArray *tempArray = [levelDict objectForKey:[NSString stringWithFormat:@"%i", currentRoadIndex2]];
+        NSString *roadString;
+        roadString = [tempArray objectAtIndex:INDEX_ROAD_SEGMENT_ID];
+        //[tempArray release];
+        
+        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment2]]];
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:roadString]];
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
            
@@ -219,7 +244,16 @@
 
 - (int) getLoopValueForIndex:(int) i
 {
-    return [[loopsArray objectAtIndex:i]intValue] +1;
+    //return [[loopsArray objectAtIndex:i]intValue] +1;
+    //int loops;
+    //loops = [[roadSegmentDict objectForKey:@"loopCount"] intValue];
+    //return loops;
+    
+    NSArray *tempArray = [levelDict objectForKey:[NSString stringWithFormat:@"%i", i]];
+    int loops = [[tempArray objectAtIndex:INDEX_NUM_OF_LOOPS]intValue] +1; // add one so we get the same number as in plist
+    
+    return loops;
+
 }
 
 - (void) loadPlayerSprite
@@ -541,8 +575,9 @@
 
 - (void) dealloc
 {
-	[roadArray release];
-    [loopsArray release];
+	[levelDict release];    
+    //[roadArray release];
+    //[loopsArray release];
     [hudLayer release];
     [super dealloc];
 }

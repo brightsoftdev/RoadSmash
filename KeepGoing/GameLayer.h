@@ -36,15 +36,17 @@
     CCSprite *road2;
     int checkCount1;
     int checkCount2;
-    int roadSegment1;
-    int roadSegment2;
+    //int roadSegment1;
+    //int roadSegment2;
     int currentRoadTexture;
     
-    NSArray *roadArray;
-    int currentRoadArrayIndex1;
-    int currentRoadArrayIndex2;
+    //NSArray *roadArray;
+    int currentRoadIndex1;
+    int currentRoadIndex2;
     int maxScreens;
-    NSArray *loopsArray;
+    //NSArray *loopsArray;
+    
+    NSDictionary *levelDict;
         
 }
 
@@ -52,8 +54,10 @@
 @property (nonatomic, retain) CCSprite *rockSprite;
 @property (nonatomic, retain) CCSprite *bikeSprite;
 
-@property (nonatomic, retain) NSArray *roadArray;
-@property (nonatomic, retain) NSArray *loopsArray;
+//@property (nonatomic, retain) NSArray *roadArray;
+//@property (nonatomic, retain) NSArray *loopsArray;
+
+@property (nonatomic, retain) NSDictionary *levelDict;
 
 +(CCScene *) scene;
 - (void) stopGame;
