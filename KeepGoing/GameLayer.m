@@ -20,6 +20,7 @@
 @synthesize bikeSprite;
 
 @synthesize roadArray;
+@synthesize loopsArray;
 
 +(CCScene *) scene
 {
@@ -47,11 +48,13 @@
         obstacleLayer = [CCLayer node];
         [self addChild:obstacleLayer];
         
-        // LEVEL ARRAY
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Level1" ofType:@"plist"];
+        // LEVEL ARRAYS
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"RoadSegments" ofType:@"plist"];
         roadArray = [[NSArray alloc] initWithContentsOfFile:path];
         currentRoadArrayIndex1 = 0;
         currentRoadArrayIndex2 = 0;
+        NSString *path2 = [[NSBundle mainBundle] pathForResource:@"Loops" ofType:@"plist"];
+        loopsArray = [[NSArray alloc] initWithContentsOfFile:path2];
         
         // VARS
         isJumping = NO;
@@ -152,7 +155,9 @@
     ++checkCount1;
     currentRoadTexture = 1;
     
-    if (checkCount1 >= NUM_OF_ROAD_SEGMENT_LOOPS)
+    int numOfLoops = [self getLoopValueForIndex:currentRoadArrayIndex1];
+    
+    if (checkCount1 >= numOfLoops)
     {
         checkCount1 = 1;
         
@@ -187,7 +192,10 @@
     ++checkCount2;
     currentRoadTexture = 2;
     
-    if (checkCount2 >= (NUM_OF_ROAD_SEGMENT_LOOPS-1))
+    int numOfLoops = [self getLoopValueForIndex:currentRoadArrayIndex2];
+
+    
+    if (checkCount2 >= (numOfLoops -1))
     {
         checkCount2 = 0;
         
@@ -212,6 +220,11 @@
     } else {
         NSLog(@"NOT SWAPPING R2, index is %i", currentRoadArrayIndex2);
     }
+}
+
+- (int) getLoopValueForIndex:(int) i
+{
+    return [[loopsArray objectAtIndex:i]intValue] +1;
 }
 
 - (void) loadPlayerSprite
@@ -534,6 +547,7 @@
 - (void) dealloc
 {
 	[roadArray release];
+    [loopsArray release];
     [hudLayer release];
     [super dealloc];
 }

@@ -13,7 +13,8 @@
 		DC2F09A314866DF700904CE8 /* 1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F099E14866DF700904CE8 /* 1-3.png */; };
 		DC2F09A414866DF700904CE8 /* 1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F099F14866DF700904CE8 /* 1-4.png */; };
 		DC2F09A514866DF700904CE8 /* 1-5.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2F09A014866DF700904CE8 /* 1-5.png */; };
-		DC2F09A7148A3A6F00904CE8 /* Level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC2F09A6148A3A6F00904CE8 /* Level1.plist */; };
+		DC2F09A7148A3A6F00904CE8 /* RoadSegments.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC2F09A6148A3A6F00904CE8 /* RoadSegments.plist */; };
+		DC2F09A9148A5DBA00904CE8 /* Loops.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC2F09A8148A5DBA00904CE8 /* Loops.plist */; };
 		DC527F421445C5A100308D27 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F411445C5A100308D27 /* r1.png */; };
 		DC527F4C1445E02A00308D27 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC527F4B1445E02A00308D27 /* r2.png */; };
 		DCA60D1114664AF6001EFA0D /* EnemyVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA60D1014664AF6001EFA0D /* EnemyVehicle.m */; };
@@ -179,7 +180,8 @@
 		DC2F099E14866DF700904CE8 /* 1-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-3.png"; sourceTree = "<group>"; };
 		DC2F099F14866DF700904CE8 /* 1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-4.png"; sourceTree = "<group>"; };
 		DC2F09A014866DF700904CE8 /* 1-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-5.png"; sourceTree = "<group>"; };
-		DC2F09A6148A3A6F00904CE8 /* Level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level1.plist; sourceTree = "<group>"; };
+		DC2F09A6148A3A6F00904CE8 /* RoadSegments.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RoadSegments.plist; sourceTree = "<group>"; };
+		DC2F09A8148A5DBA00904CE8 /* Loops.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Loops.plist; sourceTree = "<group>"; };
 		DC527F411445C5A100308D27 /* r1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r1.png; sourceTree = "<group>"; };
 		DC527F4B1445E02A00308D27 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		DCA60D0F14664AF6001EFA0D /* EnemyVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyVehicle.h; sourceTree = "<group>"; };
@@ -987,7 +989,8 @@
 				DC2F099E14866DF700904CE8 /* 1-3.png */,
 				DC2F099F14866DF700904CE8 /* 1-4.png */,
 				DC2F09A014866DF700904CE8 /* 1-5.png */,
-				DC2F09A6148A3A6F00904CE8 /* Level1.plist */,
+				DC2F09A6148A3A6F00904CE8 /* RoadSegments.plist */,
+				DC2F09A8148A5DBA00904CE8 /* Loops.plist */,
 			);
 			name = Road;
 			sourceTree = "<group>";
@@ -1091,7 +1094,8 @@
 				DC2F09A314866DF700904CE8 /* 1-3.png in Resources */,
 				DC2F09A414866DF700904CE8 /* 1-4.png in Resources */,
 				DC2F09A514866DF700904CE8 /* 1-5.png in Resources */,
-				DC2F09A7148A3A6F00904CE8 /* Level1.plist in Resources */,
+				DC2F09A7148A3A6F00904CE8 /* RoadSegments.plist in Resources */,
+				DC2F09A9148A5DBA00904CE8 /* Loops.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

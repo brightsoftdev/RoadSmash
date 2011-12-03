@@ -43,6 +43,7 @@
     NSArray *roadArray;
     int currentRoadArrayIndex1;
     int currentRoadArrayIndex2;
+    NSArray *loopsArray;
         
 }
 
@@ -51,6 +52,7 @@
 @property (nonatomic, retain) CCSprite *bikeSprite;
 
 @property (nonatomic, retain) NSArray *roadArray;
+@property (nonatomic, retain) NSArray *loopsArray;
 
 +(CCScene *) scene;
 - (void) stopGame;
@@ -58,6 +60,7 @@
 - (void) setIsJumpingStatus;
 - (void) loadBackground;
 - (void) updateScore;
+- (int) getLoopValueForIndex:(int) i;
 
 
 @end
