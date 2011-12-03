@@ -66,6 +66,7 @@
         roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
         checkCount1 = 0;
         checkCount2 = 0;
+        maxScreens = ([roadArray count] -1);
         
         // GO
         [self schedule:@selector(update:) interval:1/60];
@@ -120,8 +121,8 @@
 - (void) loadBackground
 {
 
-    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
-	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
+    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1.png"]];
+	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1.png"]];
     
     road1.scaleX = 1.15;
     road2.scaleX = 1.15;
@@ -161,29 +162,25 @@
     {
         checkCount1 = 1;
         
-        if (roadSegment1 <= MAX_SCREENS)
+        if (currentRoadArrayIndex1 < maxScreens)
         {
-            //++roadSegment1;
+
             ++currentRoadArrayIndex1;
             roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
-            NSLog(@"road segment 1 is %i", roadSegment1);
-
+            
         } else {
-            //roadSegment1 = 1;
+
             currentRoadArrayIndex1 = 0;
             roadSegment1 = [[roadArray objectAtIndex:currentRoadArrayIndex1]intValue];
-
+            
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment1]]];
-        NSLog(@"creating texture from rs1 %i", roadSegment1);
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment1]]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
-        //[road1 removeAllChildrenWithCleanup:YES];
         
-    } else {
-        NSLog(@"NOT SWAPPING R1, index is %i", currentRoadArrayIndex1);
     }
+    
 }
 
 - (void) newRoadSegmentTwoCheck
@@ -199,27 +196,25 @@
     {
         checkCount2 = 0;
         
-        if (roadSegment2 <= MAX_SCREENS)
+        if (currentRoadArrayIndex2 < maxScreens)
         {
-            //++roadSegment2;
+            
             ++currentRoadArrayIndex2;
             roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
-            NSLog(@"road segment 2 is %i", roadSegment2);
+            
         } else {
-            //roadSegment2 = 1;
+
             currentRoadArrayIndex2 = 0;
             roadSegment2 = [[roadArray objectAtIndex:currentRoadArrayIndex2]intValue];
+
         }
         
-        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"1-%i", roadSegment2]]];
-        NSLog(@"creating texture from rs2 %i", roadSegment2);
+        CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment2]]];
         [road2 setTexture:txt];
         [road2.texture setAliasTexParameters];
-        //[road2 removeAllChildrenWithCleanup:YES];
            
-    } else {
-        NSLog(@"NOT SWAPPING R2, index is %i", currentRoadArrayIndex2);
     }
+    
 }
 
 - (int) getLoopValueForIndex:(int) i

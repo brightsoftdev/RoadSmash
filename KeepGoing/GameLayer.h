@@ -43,6 +43,7 @@
     NSArray *roadArray;
     int currentRoadArrayIndex1;
     int currentRoadArrayIndex2;
+    int maxScreens;
     NSArray *loopsArray;
         
 }
