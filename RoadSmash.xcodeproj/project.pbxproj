@@ -166,11 +166,10 @@
 		DCBAE8651465562D00542D05 /* c3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE8641465562D00542D05 /* c3.png */; };
 		DCBAE86E1465612300542D05 /* water1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE86D1465612300542D05 /* water1.png */; };
 		DCBAE874146582F800542D05 /* b1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE873146582F800542D05 /* b1.png */; };
-		DCF0BC941471338300BE2B27 /* 1-1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC901471338300BE2B27 /* 1-1.tmx */; };
-		DCF0BC951471338300BE2B27 /* 1-2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC911471338300BE2B27 /* 1-2.tmx */; };
-		DCF0BC961471338300BE2B27 /* 2-1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC921471338300BE2B27 /* 2-1.tmx */; };
-		DCF0BC971471338300BE2B27 /* 2-2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC931471338300BE2B27 /* 2-2.tmx */; };
-		DCF0BC99147133A400BE2B27 /* tiledImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BC98147133A400BE2B27 /* tiledImage.png */; };
+		DCBB547514BF0C9A009B2C52 /* obstacle-city0.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547414BF0C9A009B2C52 /* obstacle-city0.png */; };
+		DCBB547914BF1289009B2C52 /* obstacle-water0.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547614BF1288009B2C52 /* obstacle-water0.png */; };
+		DCBB547A14BF1289009B2C52 /* obstacle-water1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547714BF1288009B2C52 /* obstacle-water1.png */; };
+		DCBB547B14BF1289009B2C52 /* obstacle-water2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547814BF1288009B2C52 /* obstacle-water2.png */; };
 		DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* LevelData.plist */; };
 /* End PBXBuildFile section */
 
@@ -459,11 +458,10 @@
 		DCBAE8641465562D00542D05 /* c3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c3.png; sourceTree = "<group>"; };
 		DCBAE86D1465612300542D05 /* water1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water1.png; sourceTree = "<group>"; };
 		DCBAE873146582F800542D05 /* b1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b1.png; sourceTree = "<group>"; };
-		DCF0BC901471338300BE2B27 /* 1-1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "1-1.tmx"; sourceTree = "<group>"; };
-		DCF0BC911471338300BE2B27 /* 1-2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "1-2.tmx"; sourceTree = "<group>"; };
-		DCF0BC921471338300BE2B27 /* 2-1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "2-1.tmx"; sourceTree = "<group>"; };
-		DCF0BC931471338300BE2B27 /* 2-2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "2-2.tmx"; sourceTree = "<group>"; };
-		DCF0BC98147133A400BE2B27 /* tiledImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiledImage.png; sourceTree = "<group>"; };
+		DCBB547414BF0C9A009B2C52 /* obstacle-city0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-city0.png"; sourceTree = "<group>"; };
+		DCBB547614BF1288009B2C52 /* obstacle-water0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water0.png"; sourceTree = "<group>"; };
+		DCBB547714BF1288009B2C52 /* obstacle-water1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water1.png"; sourceTree = "<group>"; };
+		DCBB547814BF1288009B2C52 /* obstacle-water2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water2.png"; sourceTree = "<group>"; };
 		DCF0BCB01475331B00BE2B27 /* LevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LevelData.plist; path = ../LevelData.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -489,6 +487,10 @@
 		DC2F08E31481135800904CE8 /* Obstacles */ = {
 			isa = PBXGroup;
 			children = (
+				DCBB547414BF0C9A009B2C52 /* obstacle-city0.png */,
+				DCBB547614BF1288009B2C52 /* obstacle-water0.png */,
+				DCBB547714BF1288009B2C52 /* obstacle-water1.png */,
+				DCBB547814BF1288009B2C52 /* obstacle-water2.png */,
 				DC2F095C1481293500904CE8 /* bridge1.png */,
 				DCA60D9114681341001EFA0D /* rock.png */,
 				DCA60D871466C209001EFA0D /* tree.png */,
@@ -967,23 +969,10 @@
 			name = Layers;
 			sourceTree = "<group>";
 		};
-		DCF0BC8E1471335A00BE2B27 /* TMX */ = {
-			isa = PBXGroup;
-			children = (
-				DCF0BC901471338300BE2B27 /* 1-1.tmx */,
-				DCF0BC911471338300BE2B27 /* 1-2.tmx */,
-				DCF0BC921471338300BE2B27 /* 2-1.tmx */,
-				DCF0BC931471338300BE2B27 /* 2-2.tmx */,
-				DCF0BC98147133A400BE2B27 /* tiledImage.png */,
-			);
-			name = TMX;
-			sourceTree = "<group>";
-		};
 		DCF0BCA21473F9D700BE2B27 /* Road */ = {
 			isa = PBXGroup;
 			children = (
 				DC2F09AA148A6B9300904CE8 /* RoadSegments */,
-				DCF0BC8E1471335A00BE2B27 /* TMX */,
 				DCF0BCB01475331B00BE2B27 /* LevelData.plist */,
 				DC2F099C14866DF700904CE8 /* 1-1.png */,
 				DC2F099D14866DF700904CE8 /* 1-2.png */,
@@ -1077,11 +1066,6 @@
 				DCA60D861466A27B001EFA0D /* retry.png in Resources */,
 				DCA60D881466C20A001EFA0D /* tree.png in Resources */,
 				DCA60D9614681341001EFA0D /* rock.png in Resources */,
-				DCF0BC941471338300BE2B27 /* 1-1.tmx in Resources */,
-				DCF0BC951471338300BE2B27 /* 1-2.tmx in Resources */,
-				DCF0BC961471338300BE2B27 /* 2-1.tmx in Resources */,
-				DCF0BC971471338300BE2B27 /* 2-2.tmx in Resources */,
-				DCF0BC99147133A400BE2B27 /* tiledImage.png in Resources */,
 				DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */,
 				DC2F095D1481293500904CE8 /* bridge1.png in Resources */,
 				DC2F09A114866DF700904CE8 /* 1-1.png in Resources */,
@@ -1100,6 +1084,10 @@
 				DC2F09BC148A820D00904CE8 /* 2-1.png in Resources */,
 				DC2F09BD148A820D00904CE8 /* 2-2.png in Resources */,
 				DC2F09BE148A820D00904CE8 /* 2-3.png in Resources */,
+				DCBB547514BF0C9A009B2C52 /* obstacle-city0.png in Resources */,
+				DCBB547914BF1289009B2C52 /* obstacle-water0.png in Resources */,
+				DCBB547A14BF1289009B2C52 /* obstacle-water1.png in Resources */,
+				DCBB547B14BF1289009B2C52 /* obstacle-water2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

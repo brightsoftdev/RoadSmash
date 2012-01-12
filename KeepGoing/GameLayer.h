@@ -40,12 +40,11 @@
     //int roadSegment2;
     int currentRoadTexture;
     
-    //NSArray *roadArray;
     int currentRoadIndex1;
     int currentRoadIndex2;
     int maxScreens;
     //NSArray *loopsArray;
-    
+    //NSArray *roadArray;
     NSDictionary *levelDict;
         
 }

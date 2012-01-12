@@ -131,8 +131,8 @@
 - (void) loadBackground
 {
 
-    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1.png"]];
-	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1.png"]];
+    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
+	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
     
     road1.scaleX = 1.15;
     road2.scaleX = 1.15;
@@ -172,7 +172,7 @@
     {
         checkCount1 = 1;
         
-        if (currentRoadIndex1 < maxScreens)
+        if (currentRoadIndex1 < maxScreens) // if we're at the end of LevelData, reset the index and start over
         {
 
             ++currentRoadIndex1;
@@ -191,6 +191,17 @@
         NSArray *tempArray = [levelDict objectForKey:[NSString stringWithFormat:@"%i", currentRoadIndex1]];
         NSString *roadString;
         roadString = [tempArray objectAtIndex:INDEX_ROAD_SEGMENT_ID];
+        
+        
+        BOOL hasObstacle = [[tempArray objectAtIndex:INDEX_HAS_OBSTACLE] boolValue];
+        if (hasObstacle)
+        {
+            NSString *obstacleType = [tempArray objectAtIndex:INDEX_LEVEL_TYPE];
+            
+            [self loadObstacle:obstacleType];
+            NSLog(@"HAS OBSTACLE");
+        }
+        
         //[tempArray release];
         
         //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment1]]];
@@ -324,6 +335,29 @@
      }
      
     */ //OTHER
+}
+
+- (void) loadObstacle:(NSString *) obs
+{
+    
+    int obsType;
+    if (obs == @"water")
+    {
+        obsType=(arc4random() % 3); // RANDOM 0-2
+    } else {
+        obsType=0;
+    }
+    
+    CCSprite *obstacle = [CCSprite spriteWithFile:[NSString stringWithFormat:@"obstacle-%@%i.png", obs, obsType]];
+    [obstacle.texture setAliasTexParameters];
+    [obstacleLayer addChild:obstacle z:999];
+    obstacle.position = ccp(screenSize.width/2, screenSize.height*1.5);
+    id actionMove = [CCMoveTo actionWithDuration:gameSpeed*1.5 position:ccp(screenSize.width/2, 0)];
+    id actionMoveOff = [CCMoveTo actionWithDuration:gameSpeed*1.5 position:ccp(screenSize.width/2, -screenSize.height*1.5)];
+    id actionClean = [CCCallFuncND actionWithTarget:obstacle selector:@selector(removeFromParentAndCleanup:) data:(void*)YES];
+    id actionSeq = [CCSequence actions:actionMove, actionMoveOff,actionClean, nil];
+    [obstacle runAction:actionSeq];
+    
 }
 
 - (void) loadBridge
