@@ -58,7 +58,7 @@
         */
         
         // LEVEL DICTIONARY
-        NSString *levelDictPath = [[NSBundle mainBundle] pathForResource:@"LevelData" ofType:@"plist"];
+        NSString *levelDictPath = [[NSBundle mainBundle] pathForResource:@"RSLevelData" ofType:@"plist"];
         levelDict = [[NSDictionary alloc] initWithContentsOfFile:levelDictPath];
         
         // VARS

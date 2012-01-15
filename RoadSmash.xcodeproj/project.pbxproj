@@ -168,6 +168,7 @@
 		DCBB549B14C2E66B009B2C52 /* 0-2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549814C2E669009B2C52 /* 0-2.png */; };
 		DCBB549C14C2E66B009B2C52 /* 0-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549914C2E669009B2C52 /* 0-1.png */; };
 		DCBB549D14C2E66B009B2C52 /* 0-3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549A14C2E66A009B2C52 /* 0-3.png */; };
+		DCBB549F14C32DE8009B2C52 /* RSLevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549E14C32DE8009B2C52 /* RSLevelData.plist */; };
 		DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* LevelData.plist */; };
 /* End PBXBuildFile section */
 
@@ -458,6 +459,7 @@
 		DCBB549814C2E669009B2C52 /* 0-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-2.png"; sourceTree = "<group>"; };
 		DCBB549914C2E669009B2C52 /* 0-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-1.png"; sourceTree = "<group>"; };
 		DCBB549A14C2E66A009B2C52 /* 0-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-3.png"; sourceTree = "<group>"; };
+		DCBB549E14C32DE8009B2C52 /* RSLevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RSLevelData.plist; sourceTree = "<group>"; };
 		DCF0BCB01475331B00BE2B27 /* LevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LevelData.plist; path = ../LevelData.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -500,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				DCF0BCB01475331B00BE2B27 /* LevelData.plist */,
+				DCBB549E14C32DE8009B2C52 /* RSLevelData.plist */,
 				DCBB549914C2E669009B2C52 /* 0-1.png */,
 				DCBB549814C2E669009B2C52 /* 0-2.png */,
 				DCBB549A14C2E66A009B2C52 /* 0-3.png */,
@@ -1080,6 +1083,7 @@
 				DCBB549B14C2E66B009B2C52 /* 0-2.png in Resources */,
 				DCBB549C14C2E66B009B2C52 /* 0-1.png in Resources */,
 				DCBB549D14C2E66B009B2C52 /* 0-3.png in Resources */,
+				DCBB549F14C32DE8009B2C52 /* RSLevelData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
