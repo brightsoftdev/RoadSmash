@@ -131,8 +131,8 @@
 - (void) loadBackground
 {
 
-    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
-	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"1-1.png"]];
+    road1=[CCSprite spriteWithFile:[NSString stringWithFormat:@"0-1.png"]];
+	road2=[CCSprite spriteWithFile:[NSString stringWithFormat:@"0-1.png"]];
     
     road1.scaleX = 1.15;
     road2.scaleX = 1.15;
