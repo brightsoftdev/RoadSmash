@@ -345,7 +345,7 @@
     {
         obsType=(arc4random() % 3); // RANDOM 0-2
     } else {
-        obsType=0;
+        obsType = 0;
     }
     
     CCSprite *obstacle = [CCSprite spriteWithFile:[NSString stringWithFormat:@"obstacle-%@%i.png", obs, obsType]];

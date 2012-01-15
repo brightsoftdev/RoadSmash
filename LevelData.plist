@@ -7,14 +7,14 @@
 		<string>1-1</string>
 		<string>city</string>
 		<integer>2</integer>
-		<false/>
+		<true/>
 	</array>
 	<key>1</key>
 	<array>
 		<string>1-2</string>
 		<string>city</string>
 		<integer>4</integer>
-		<false/>
+		<true/>
 	</array>
 	<key>2</key>
 	<array>

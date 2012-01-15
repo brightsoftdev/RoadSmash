@@ -63,6 +63,7 @@
 - (void) loadPlayerSprite;
 - (void) setIsJumpingStatus;
 - (void) loadBackground;
+- (void) loadObstacle:(NSString *) obs;
 - (void) updateScore;
 - (int) getLoopValueForIndex:(int) i;
 
