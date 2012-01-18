@@ -201,10 +201,7 @@
             [self loadObstacle:obstacleType];
             NSLog(@"HAS OBSTACLE");
         }
-        
-        //[tempArray release];
-        
-        //CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", roadSegment1]]];
+                
         CCTexture2D *txt=[[CCTexture2D alloc]initWithImage:[UIImage imageNamed:roadString]];
         [road1 setTexture:txt];
         [road1.texture setAliasTexParameters];
@@ -341,9 +338,10 @@
 {
     
     int obsType;
-    if (obs == @"water")
+    if ([obs isEqualToString:@"water"]||[obs isEqualToString:@"forest"])
     {
         obsType=(arc4random() % 3); // RANDOM 0-2
+        NSLog(@"WATER LEVEL, OBJECT %i", obsType);
     } else {
         obsType = 0;
     }

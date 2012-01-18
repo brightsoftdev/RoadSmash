@@ -159,7 +159,7 @@
 		DCBAE8651465562D00542D05 /* c3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE8641465562D00542D05 /* c3.png */; };
 		DCBAE86E1465612300542D05 /* water1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE86D1465612300542D05 /* water1.png */; };
 		DCBAE874146582F800542D05 /* b1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBAE873146582F800542D05 /* b1.png */; };
-		DCBB547514BF0C9A009B2C52 /* obstacle-forest0.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547414BF0C9A009B2C52 /* obstacle-forest0.png */; };
+		DCBB547514BF0C9A009B2C52 /* obstacle-forestX.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547414BF0C9A009B2C52 /* obstacle-forestX.png */; };
 		DCBB547A14BF1289009B2C52 /* obstacle-water1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547714BF1288009B2C52 /* obstacle-water1.png */; };
 		DCBB547B14BF1289009B2C52 /* obstacle-water2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB547814BF1288009B2C52 /* obstacle-water2.png */; };
 		DCBB548814C28EA4009B2C52 /* obstacle-water0.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB548714C28EA4009B2C52 /* obstacle-water0.png */; };
@@ -169,6 +169,9 @@
 		DCBB549C14C2E66B009B2C52 /* 0-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549914C2E669009B2C52 /* 0-1.png */; };
 		DCBB549D14C2E66B009B2C52 /* 0-3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549A14C2E66A009B2C52 /* 0-3.png */; };
 		DCBB549F14C32DE8009B2C52 /* RSLevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCBB549E14C32DE8009B2C52 /* RSLevelData.plist */; };
+		DCBB54A314C5A79F009B2C52 /* obstacle-forest0.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB54A014C5A79E009B2C52 /* obstacle-forest0.png */; };
+		DCBB54A414C5A79F009B2C52 /* obstacle-forest1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB54A114C5A79E009B2C52 /* obstacle-forest1.png */; };
+		DCBB54A514C5A79F009B2C52 /* obstacle-forest2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBB54A214C5A79E009B2C52 /* obstacle-forest2.png */; };
 		DCF0BCB11475331B00BE2B27 /* LevelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF0BCB01475331B00BE2B27 /* LevelData.plist */; };
 /* End PBXBuildFile section */
 
@@ -450,7 +453,7 @@
 		DCBAE8641465562D00542D05 /* c3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c3.png; sourceTree = "<group>"; };
 		DCBAE86D1465612300542D05 /* water1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water1.png; sourceTree = "<group>"; };
 		DCBAE873146582F800542D05 /* b1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b1.png; sourceTree = "<group>"; };
-		DCBB547414BF0C9A009B2C52 /* obstacle-forest0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-forest0.png"; sourceTree = "<group>"; };
+		DCBB547414BF0C9A009B2C52 /* obstacle-forestX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-forestX.png"; sourceTree = "<group>"; };
 		DCBB547714BF1288009B2C52 /* obstacle-water1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water1.png"; sourceTree = "<group>"; };
 		DCBB547814BF1288009B2C52 /* obstacle-water2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water2.png"; sourceTree = "<group>"; };
 		DCBB548714C28EA4009B2C52 /* obstacle-water0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-water0.png"; sourceTree = "<group>"; };
@@ -460,6 +463,9 @@
 		DCBB549914C2E669009B2C52 /* 0-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-1.png"; sourceTree = "<group>"; };
 		DCBB549A14C2E66A009B2C52 /* 0-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-3.png"; sourceTree = "<group>"; };
 		DCBB549E14C32DE8009B2C52 /* RSLevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RSLevelData.plist; sourceTree = "<group>"; };
+		DCBB54A014C5A79E009B2C52 /* obstacle-forest0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-forest0.png"; sourceTree = "<group>"; };
+		DCBB54A114C5A79E009B2C52 /* obstacle-forest1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-forest1.png"; sourceTree = "<group>"; };
+		DCBB54A214C5A79E009B2C52 /* obstacle-forest2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "obstacle-forest2.png"; sourceTree = "<group>"; };
 		DCF0BCB01475331B00BE2B27 /* LevelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LevelData.plist; path = ../LevelData.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -485,7 +491,10 @@
 		DC2F08E31481135800904CE8 /* Obstacles */ = {
 			isa = PBXGroup;
 			children = (
-				DCBB547414BF0C9A009B2C52 /* obstacle-forest0.png */,
+				DCBB54A014C5A79E009B2C52 /* obstacle-forest0.png */,
+				DCBB54A114C5A79E009B2C52 /* obstacle-forest1.png */,
+				DCBB54A214C5A79E009B2C52 /* obstacle-forest2.png */,
+				DCBB547414BF0C9A009B2C52 /* obstacle-forestX.png */,
 				DCBB548C14C29F6A009B2C52 /* obstacle-city0.png */,
 				DCBB548D14C29F6A009B2C52 /* obstacle-city1.png */,
 				DCBB548714C28EA4009B2C52 /* obstacle-water0.png */,
@@ -1074,7 +1083,7 @@
 				DC2F09BC148A820D00904CE8 /* 2-1.png in Resources */,
 				DC2F09BD148A820D00904CE8 /* 2-2.png in Resources */,
 				DC2F09BE148A820D00904CE8 /* 2-3.png in Resources */,
-				DCBB547514BF0C9A009B2C52 /* obstacle-forest0.png in Resources */,
+				DCBB547514BF0C9A009B2C52 /* obstacle-forestX.png in Resources */,
 				DCBB547A14BF1289009B2C52 /* obstacle-water1.png in Resources */,
 				DCBB547B14BF1289009B2C52 /* obstacle-water2.png in Resources */,
 				DCBB548814C28EA4009B2C52 /* obstacle-water0.png in Resources */,
@@ -1084,6 +1093,9 @@
 				DCBB549C14C2E66B009B2C52 /* 0-1.png in Resources */,
 				DCBB549D14C2E66B009B2C52 /* 0-3.png in Resources */,
 				DCBB549F14C32DE8009B2C52 /* RSLevelData.plist in Resources */,
+				DCBB54A314C5A79F009B2C52 /* obstacle-forest0.png in Resources */,
+				DCBB54A414C5A79F009B2C52 /* obstacle-forest1.png in Resources */,
+				DCBB54A514C5A79F009B2C52 /* obstacle-forest2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
